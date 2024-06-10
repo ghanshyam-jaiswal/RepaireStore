@@ -3,6 +3,7 @@ import "../css/login.css"
 import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { toast } from 'react-toastify'
+import axios from 'axios';
 
 const Login = () => {
 
@@ -17,20 +18,50 @@ const Login = () => {
     navigate('/signup')
   }
 
-  let handleLogin=(e)=>{
-     e.preventDefault()
-    let logged=JSON.parse(localStorage.getItem("user"))
-    if(userDetails.email===logged.email && userDetails.password===logged.password){
-      toast.success('Succeessful')
-      localStorage.setItem('loggedIn',true)
-      navigate('/')
-    }
-    else{
-      toast.error('Invailid')
-    }
-    
+  // let handleLogin=(e)=>{
+  //    e.preventDefault()
+  //   let logged=JSON.parse(localStorage.getItem("user"))
+  //   if(userDetails.email===logged.email && userDetails.password===logged.password){
+  //     toast.success('Succeessful')
+  //     localStorage.setItem('loggedIn',true)
+  //     navigate('/')
+  //   }
+  //   else{
+  //     toast.error('Invailid')
+  //   }
+  // }  
 
-  }  
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    let payload = {
+      eventID: "1001",
+      addInfo: {
+        email: userDetails.email,
+        password: userDetails.password,
+      },
+    };
+
+    try {
+      const response = await axios.post('http://localhost:5164/loginservice', payload);
+      
+      if (response.data==='Login successful') {
+        // console.log(response.data)
+        // console.log(response)
+        toast.success('Login Successful');
+        navigate('/');
+      } else {
+        // console.log(response.data)
+        // console.log(response)
+        toast.error('Invalid');
+      }
+    } catch (error) {
+      console.error('Error logging in:', error);
+      toast.error('An error occurred during login');
+      // toast.error('Invalid Credentials');
+    }
+  };
+
 
 
   return (

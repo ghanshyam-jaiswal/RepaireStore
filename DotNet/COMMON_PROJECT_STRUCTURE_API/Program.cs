@@ -24,23 +24,28 @@ var builder = WebHost.CreateDefaultBuilder(args)
         s.AddAuthorization();
         s.AddControllers();
         s.AddCors();
-        s.AddAuthentication("SourceJWT").AddScheme<SourceJwtAuthenticationSchemeOptions, SourceJwtAuthenticationHandler>("SourceJWT", options =>
-        {
-            options.SecretKey = appsettings["jwt_config:Key"].ToString();
-            options.ValidIssuer = appsettings["jwt_config:Issuer"].ToString();
-            options.ValidAudience = appsettings["jwt_config:Audience"].ToString();
-            options.Subject = appsettings["jwt_config:Subject"].ToString();
-        });
+
+
+        // s.AddAuthentication("SourceJWT").AddScheme<SourceJwtAuthenticationSchemeOptions, SourceJwtAuthenticationHandler>("SourceJWT", options =>
+        // {
+        //     options.SecretKey = appsettings["jwt_config:Key"].ToString();
+        //     options.ValidIssuer = appsettings["jwt_config:Issuer"].ToString();
+        //     options.ValidAudience = appsettings["jwt_config:Audience"].ToString();
+        //     options.Subject = appsettings["jwt_config:Subject"].ToString();
+        // });
+        
     })
     .Configure(app =>
     {
         app.UseAuthentication();
         app.UseAuthorization();
         app.UseCors(options =>
-            options.WithOrigins("https://localhost:5002", "http://localhost:5001")
-            .AllowAnyHeader().AllowAnyMethod().AllowCredentials());
+            options.WithOrigins("https://localhost:5002", "http://localhost:5001","http://localhost:5173")
+            // .AllowAnyHeader().AllowAnyMethod().AllowCredentials());
+            .AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
         app.UseRouting();
         app.UseStaticFiles();
+        
 
         app.UseEndpoints(e =>
         {
@@ -80,6 +85,7 @@ var builder = WebHost.CreateDefaultBuilder(args)
             {
                 var body = await new StreamReader(http.Request.Body).ReadToEndAsync();
                 requestData rData = JsonSerializer.Deserialize<requestData>(body);
+                Console.WriteLine($"Received signup request: {JsonSerializer.Serialize(rData)}");
                 if (rData.eventID == "1001") // signup
                     await http.Response.WriteAsJsonAsync(await signup.Signup(rData));
             });

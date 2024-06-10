@@ -3,6 +3,7 @@ import '../css/signup.css'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { toast } from 'react-toastify'
+import axios from 'axios';
 
 const Signup = () => {
 
@@ -52,17 +53,66 @@ const Signup = () => {
   let navigate=useNavigate()
   
 
-  let handleSubmit=(e)=>{
-    e.preventDefault()
+  // let handleSubmit=(e)=>{
+  //   e.preventDefault()
 
-    if(isValidate()){
-      localStorage.setItem("user",JSON.stringify(userDetails))
-      // alert('Successful')
-      toast.success('successful')
-      navigate('/login');
-    }
+  //   if(isValidate()){
+  //     localStorage.setItem("user",JSON.stringify(userDetails))
+  //     // alert('Successful')
+  //     toast.success('successful')
+  //     navigate('/login');
+  //   }
     
-  }
+  // }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    let payload={
+      
+        eventID: "1001",
+        addInfo: {
+          email: userDetails.email,
+          password: userDetails.password,
+          first_name:userDetails.firstName ,
+          last_name: userDetails.lastName,
+          contact: userDetails.contact,
+          street_address1:userDetails.streetAddress1 ,
+          street_address2: userDetails.streetAddress2,
+          city: userDetails.city,
+          state: userDetails.state,
+          pincode: userDetails.pincode,
+          country: userDetails.country
+        }
+      
+    }
+
+    if (!isValidate()) return;
+
+    try {
+      const response = await axios.post('http://localhost:5164/signup', payload);
+      if(response.data.rData.rMessage==='Duplicate Credentials'){
+        toast.error("Already Exists")
+      }
+      else if(response.data.rData.rMessage==='Signup Successful'){
+        console.log('Signup successful');
+        toast.success('Signup successful');
+        console.log(response.data);
+        navigate('/login');
+      }
+    
+      
+    } catch (error) {
+      console.error('Error signing up:', error);
+      if (error.response && error.response.status === 409) {
+        toast.error('User with this email already exists');
+      } else {
+        toast.error('An error occurred during signup');
+      }
+    }
+
+    
+  };
 
 
   return (
