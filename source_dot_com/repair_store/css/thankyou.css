@@ -1,0 +1,38 @@
+.thankyou{
+    height: 90%;
+    /* background-color: rgb(196, 196, 22); */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('../Assests/signup-img.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.thankyou-section{
+    width: 23%;
+    height: 50%;
+    /* border: 1px solid; */
+   /* background-image: url('../Assests/thankyou.png');
+   background-size: cover;
+   background-repeat: no-repeat;
+   background-position: center; */
+   display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.thankyou-section img{
+    border-radius: 5px;
+}
+.thankyou-section button{
+    width: 30%;
+    height: 10%;
+    border-radius: 5px;
+    border: none;
+    background-color: rgb(19, 193, 19);
+}
+.thankyou-section button:hover{
+    background-color: rgb(20, 183, 20);
+
+}

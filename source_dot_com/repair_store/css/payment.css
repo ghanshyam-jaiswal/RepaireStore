@@ -1,0 +1,21 @@
+.payment{
+    width: 100%;
+    height: 90%;
+    border: 3px solid red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url(../Assests/signup-img.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    /* background-attachment: fixed; */
+    background-position: center;
+}
+.payment-body{
+    width: 20%;
+    height: 20%;
+    /* border: 1px solid; */
+    padding: 3%;
+    background-color: black;
+    color: white;
+}

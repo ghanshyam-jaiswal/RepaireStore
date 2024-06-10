@@ -1,0 +1,30 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+.home{
+    width: 100vw;
+    height: 100vh;
+    border: 2px solid red;
+    /* display: flex; */
+}
+.nav{
+    width: auto;
+    height: 8%;
+    border: 1px solid;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    /* margin-bottom: 30px; */
+}
+.cards{
+    width: 10%;
+    height: 5%;
+    border: 1px solid;
+    margin: 2%;
+
+}
+/* .cards-parent{
+    display: flex;
+} */
