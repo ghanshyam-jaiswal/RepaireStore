@@ -8,6 +8,12 @@ import { FaMailBulk } from "react-icons/fa";
 import { toast,ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 // toast.configure();
+import { FaUserLarge } from "react-icons/fa6";
+import { MdEmail } from "react-icons/md";
+import { FaLocationDot } from "react-icons/fa6";
+import { IoCall } from "react-icons/io5";
+import { MdFax } from "react-icons/md";
+
 
 const Contact = () => {
 
@@ -29,79 +35,42 @@ const Contact = () => {
   return (
     <>
       <div className="contact">
-        <h1 className="contact-text">Want to chat now or get a call from us?</h1>
-
-        <div className="contact-type">
-
-          <div className="contact-type-box1">
-            <h3><MdOutlineMessage style={{marginRight:'2%',fontSize:'200%'}}/> Send Your Queries or Questions Here</h3>
-            <form>
-              {/* <textarea name="" id="" style={{maxHeight:'50%',minHeight:'50%',maxWidth:'60%',minWidth:'60%',border:'none',padding:'2%'}}>Write Here.........</textarea> */}
-              <textarea name="" id="" style={{maxHeight:'50%',minHeight:'50%',maxWidth:'60%',minWidth:'60%',border:'none',padding:'2%'}} defaultValue="Write Here......"></textarea>
-              {/* <input type="text" placeholder="Hello........" className="contact-type-box1-msg"/> */}
-              <div className="contact-type-box1-submit"><input type="submit" value={'Send'} onClick={()=>handleSend()}/> </div>
-              {/* <div className="contact-type-box1-submit"><button onClick={handleIt}>click</button><ToastContainer /></div> */}
-            </form>
-          </div>
-
-          <div className="contact-type-box2">
-            <div className="contact-type-box2-1"><h3><LuPhoneCall style={{marginRight:'2%',fontSize:'150%'}}/><Link to={"tel:7000365544"}>+91 7000365577</Link></h3></div>
-            <div className="contact-type-box2-2"><h3><FaMailBulk style={{marginRight:'2%',fontSize:'150%'}}/><Link to={"mailto:ghanshyamjaiswal7000@gmail.com"}>ghanshyamjaiswal7000@gmail.com</Link></h3></div>
-          </div>
-
-        </div>
-
-        <div className="contact-footer">
-          <div
-            className="contact-footer-logo1"
-            style={{
-              backgroundImage: 'url("../Assests/8303673-removebg-preview.png")',
-            }}
-          ></div>
-          <div
-            className="contact-footer-info"
-            style={{ color: "rgb(224, 209, 209)" }}
-          >
-            <h1 style={{ fontSize: "250%" }}>Repair</h1>
-            <h1 style={{ fontSize: "500%" }}>Store</h1>
-          </div>
-          <div className="contact-footer-info">
-            <div>About</div>
-            <div>Customer Support</div>
-            <div>FAQ</div>
-            <div>Terms & Conditions</div>
-          </div>
-          <div className="contact-footer-info">
-            <div>Facebook</div>
-            <div>Instagram</div>
-            <div>Twitter</div>
-            <div>Youtube</div>
-          </div>
-          <div className="contact-footer-info contact-footer-info-link">
-            <div>
-              <Link to={"/home"}>Home</Link>
-            </div>
-            <div>
-              <Link to={"/category"}>Category</Link>
-            </div>
-            <div>
-              <Link to={"/signup"}>Sign up</Link>
-            </div>
-            <div>
-              <Link to={"/contact"}>Contact</Link>
-            </div>
-            <div>
-              {" "}
-              <Link to={"/about"}>About</Link>
+        
+        <div className="contact-details">
+          <div className="contact-details-1">
+            <div className="contact-details-1-details">
+              <div className="icon-text"> <label htmlFor="name"><FaUserLarge className="icon"/></label> <input type="text" id="name" placeholder="Name" /> </div>
+              <div className="icon-text"> <label htmlFor="email"><MdEmail className="icon"/></label><input type="email" id="email" placeholder="Email" /> </div>
+              <textarea name="" id="" defaultValue="Write Here......"></textarea>
+              <div className="contact-details-1-details-button" ><button>Send Message</button></div>
             </div>
           </div>
-          <div
-            className="contact-footer-logo1"
-            style={{
-              backgroundImage:
-                'url("../Assests/energy-charger-logo-removebg-preview.png")',
-            }}
-          ></div>
+
+          <div className="contact-details-2"><img src="../Assests/contact.png" alt="Contact Us" /></div>
+
+          <div className="contact-option">
+              <div className="contact-option-box">
+                <div className="contact-option-box-icon"><FaLocationDot /></div>
+                <div className="contact-option-box-h"><h3>OFFICE</h3></div>
+                <div className="contact-option-box-p"><p>Plot No. 16, Electronic City, Phase IV, Udyog Vihar, Sector 18, Gurugram, Haryana 122001</p></div>
+              </div>
+              <div className="contact-option-box">
+                <div className="contact-option-box-icon"><IoCall /></div>
+                <div className="contact-option-box-h"><h3>PHONE NUMBER</h3></div>
+                <div className="contact-option-box-p"><p><a href="tel:7000365544">+91-7000365544</a></p></div>
+              </div>
+              <div className="contact-option-box">
+                <div className="contact-option-box-icon"><MdFax /></div>
+                <div className="contact-option-box-h"><h3>FAX</h3></div>
+                <div className="contact-option-box-p"><p><a href="tel:1-234-567-8900">1-234-567-8900</a></p></div>
+              </div>
+              <div className="contact-option-box">
+                <div className="contact-option-box-icon"><MdEmail/></div>
+                <div className="contact-option-box-h"><h3>EMAIL</h3></div>
+                <div className="contact-option-box-p"><p><a href="mailto:">ghanshyamjaiswal7000@gmail.com</a></p></div>
+              </div>
+              
+            </div>
         </div>
 
       </div>

@@ -65,6 +65,22 @@ const Signup = () => {
     
   // }
 
+  // let clearData=()=>{
+  //   useState({
+  //     firstName:'',
+  //     lastName:'',
+  //     email:'',
+  //     password:'',
+  //     contact:'',
+  //     streetAddress1:'',
+  //     streetAddress2:'',
+  //     city:'',
+  //     state:'',
+  //     pincode:'',
+  //     country:''
+  //   })
+  // }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -86,11 +102,13 @@ const Signup = () => {
         }
       
     }
+    // clearData()
 
     if (!isValidate()) return;
 
     try {
       const response = await axios.post('http://localhost:5164/signup', payload);
+      console.log(response)
       if(response.data.rData.rMessage==='Duplicate Credentials'){
         toast.error("Already Exists")
       }
