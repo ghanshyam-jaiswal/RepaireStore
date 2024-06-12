@@ -18,6 +18,8 @@ var builder = WebHost.CreateDefaultBuilder(args)
         s.AddSingleton<Update>();
         s.AddSingleton<LoginService>();
         s.AddSingleton<delete>();
+        s.AddSingleton<contact>();
+        s.AddSingleton<users>();
         s.AddSingleton<dbServices>();
 
 
@@ -53,6 +55,8 @@ var builder = WebHost.CreateDefaultBuilder(args)
             var loginService = e.ServiceProvider.GetRequiredService<LoginService>();
             var signup = e.ServiceProvider.GetRequiredService<signup>();
             var update = e.ServiceProvider.GetRequiredService<Update>();
+            var contact = e.ServiceProvider.GetRequiredService<contact>();
+            var users = e.ServiceProvider.GetRequiredService<users>();
             var deleteService = e.ServiceProvider.GetRequiredService<delete>();
 
             e.MapPost("login",
@@ -89,6 +93,32 @@ var builder = WebHost.CreateDefaultBuilder(args)
                 if (rData.eventID == "1001") // signup
                     await http.Response.WriteAsJsonAsync(await signup.Signup(rData));
             });
+            e.MapPost("contact",
+            [AllowAnonymous] async (HttpContext http) =>
+            {
+                var body = await new StreamReader(http.Request.Body).ReadToEndAsync();
+                requestData rData = JsonSerializer.Deserialize<requestData>(body);
+                Console.WriteLine($"Received contact request: {JsonSerializer.Serialize(rData)}");
+                if (rData.eventID == "1001") // contact
+                    await http.Response.WriteAsJsonAsync(await contact.Contact(rData));
+            });
+
+            e.MapPost("getUsers",
+            [AllowAnonymous] async (HttpContext http) =>
+            {
+                var body = await new StreamReader(http.Request.Body).ReadToEndAsync();
+                requestData rData = JsonSerializer.Deserialize<requestData>(body);
+                Console.WriteLine($"Received get users request: {JsonSerializer.Serialize(rData)}");
+                if (rData.eventID == "1001") // getUsers
+                {
+                    // Call the GetAllUsers method directly and return its result as JSON response
+                    await http.Response.WriteAsJsonAsync(await users.GetAllUsers(rData));
+                }
+            });
+
+
+
+
 
             e.MapPost("update",
             [AllowAnonymous] async (HttpContext http) =>

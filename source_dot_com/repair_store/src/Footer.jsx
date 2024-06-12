@@ -1,41 +1,44 @@
 import React from 'react'
 import '../css/footer.css'
 import { Link } from 'react-router-dom'
+import { CiFacebook } from "react-icons/ci";
+import { LuInstagram } from "react-icons/lu";
+import { FaSquareXTwitter } from "react-icons/fa6";
+import { FaYoutubeSquare } from "react-icons/fa";
+
+
 const Footer = () => {
   return (
     
-       <div className="landing-footer" style={{height:'24%'}}>
+       <div className="footer">
           <div
-            className="landing-footer-logo1"
+            className="footer-logo1"
             style={{
-              backgroundImage: 'url("../Assests/8303673-removebg-preview.png")',
+              backgroundImage: 'url("../Assests/logo-removebg.png")',
             }}
           ></div>
           <div
-            className="landing-footer-info"
+            className="footer-info"
             style={{ color: "rgb(224, 209, 209)" }}
           >
-            <h1 style={{ fontSize: "250%" }}>Repair</h1>
-            <h1 style={{ fontSize: "500%" }}>Store</h1>
+            <h1 >Repair</h1>
+            <h3>Store</h3>
           </div>
-          <div className="landing-footer-info">
+          <div className="footer-info">
             <div>About</div>
             <div>Customer Support</div>
             <div>FAQ</div>
             <div>Terms & Conditions</div>
           </div>
-          <div className="landing-footer-info">
-            <div>Facebook</div>
-            <div>Instagram</div>
-            <div>Twitter</div>
-            <div>Youtube</div>
+          <div className="footer-info">
+            <div><CiFacebook className='footer-info-icon' /> Facebook</div>
+            <div><LuInstagram className='footer-info-icon' />Instagram</div>
+            <div><FaSquareXTwitter className='footer-info-icon' />Twitter</div>
+            <div><FaYoutubeSquare className='footer-info-icon' />Youtube</div>
           </div>
-          <div className="landing-footer-info landing-footer-info-link">
+          <div className="footer-info landing-footer-info-link">
             <div>
-              <Link to={"/home"}>Home</Link>
-            </div>
-            <div>
-              <Link to={"/category"}>Category</Link>
+              <Link to={"/"}>Home</Link>
             </div>
             <div>
               <Link to={"/signup"}>Sign up</Link>
@@ -49,7 +52,7 @@ const Footer = () => {
             </div>
           </div>
           <div
-            className="landing-footer-logo1"
+            className="footer-logo1"
             style={{
               backgroundImage:
                 'url("../Assests/energy-charger-logo-removebg-preview.png")',

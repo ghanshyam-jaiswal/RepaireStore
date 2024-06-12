@@ -2,6 +2,10 @@ import React from 'react'
 import '../css/landing.css'
 import { Link } from 'react-router-dom'
 import list from '../Data/product'
+import { CiFacebook } from "react-icons/ci";
+import { LuInstagram } from "react-icons/lu";
+import { FaSquareXTwitter } from "react-icons/fa6";
+import { FaYoutubeSquare } from "react-icons/fa";
 
 
 const Landing = () => {
@@ -80,10 +84,10 @@ const Landing = () => {
 
       <div className="landing-back-to-top" onClick={scrollToTop}>Back-to-top</div>
       <div className="landing-footer">
-        <div className="landing-footer-logo1" style={{backgroundImage: 'url("../Assests/8303673-removebg-preview.png")'}}></div>
+        <div className="landing-footer-logo1" style={{backgroundImage: 'url("../Assests/logo-removebg.png")'}}></div>
         <div className="landing-footer-info" style={{color: 'rgb(224, 209, 209)'}}>
-          <h1 style={{fontSize:'250%'}}>Repair</h1>
-          <h1 style={{fontSize:'500%'}}>Store</h1>
+          <h1>Repair</h1>
+          <h3>Store</h3>
           </div>
         <div className="landing-footer-info">
           <div>About</div>
@@ -92,14 +96,14 @@ const Landing = () => {
           <div>Terms & Conditions</div>
         </div>
         <div className="landing-footer-info">
-          <div>Facebook</div>
-          <div>Instagram</div>
-          <div>Twitter</div>
-          <div>Youtube</div>
+          <div><CiFacebook className='footer-info-icon' />Facebook</div>
+          <div><LuInstagram className='footer-info-icon' />Instagram</div>
+          <div><FaSquareXTwitter className='footer-info-icon' />Twitter</div>
+          <div><FaYoutubeSquare className='footer-info-icon' />Youtube</div>
         </div>
         <div className="landing-footer-info landing-footer-info-link">
          <div><Link onClick={scrollToTop}>Home</Link></div>
-         <div><Link to={'/category'}>Category</Link></div>
+         {/* <div><Link to={'/category'}>Category</Link></div> */}
          <div><Link to={'/signup'}>Sign up</Link></div>
          <div><Link to={'/contact'}>Contact</Link></div>
          <div> <Link to={'/about'}>About</Link></div>

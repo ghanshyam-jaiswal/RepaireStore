@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "../css/contact.css";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { MdOutlineMessage } from "react-icons/md";
@@ -13,24 +13,96 @@ import { MdEmail } from "react-icons/md";
 import { FaLocationDot } from "react-icons/fa6";
 import { IoCall } from "react-icons/io5";
 import { MdFax } from "react-icons/md";
+import axios from 'axios';
+
 
 
 const Contact = () => {
 
+  let [userDetails,setUserDetails]=useState({
+    name:'',
+    email:'',
+    message:'',
+  })
+
+  let isValidate=()=>{
+
+    let proceed=true
+    let message='Enter';
+
+    if(userDetails.name===''|| userDetails.name===null){
+      proceed=false
+      message+=' Name'
+      
+    }
+    if(userDetails.email===''|| userDetails.email===null){
+      proceed=false
+      message+=' Email'
+      
+    }
+    if(userDetails.message===''|| userDetails.message===null){
+      proceed=false
+      message+=' Message'
+    }
+   
+    if(!proceed){
+      // alert(message)
+      toast.info(message)
+    }
+   
+    return proceed
+  }
+
   let navigate=useNavigate()
 
-  let handleSend=()=>{
-    toast.success('Successful')
-    navigate('/thankyou')
-  }
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  let handleIt=()=>{
-    toast("Hello Geeks");
-    // nevigate("/home")
-    // <Landing/>
-    // useNavigate("/home")
-  }
+    let payload={
+      
+        eventID: "1001",
+        addInfo: {
+          name:userDetails.name ,
+          email: userDetails.email,
+          message: userDetails.message,
+        }
+      
+    }
+    // clearData()
+    console.log(userDetails)
+    if (!isValidate()) return;
+
+    try {
+      const response = await axios.post('http://localhost:5164/contact', payload);
+      console.log(response)
+      if(response.data.rData.rMessage==='Duplicate Credentials'){
+        toast.error("Already Submitted")
+      }
+      else if(response.data.rData.rMessage==='Successful'){
+        console.log('Submission Successful');
+        toast.success('Submission Successful');
+        console.log(response.data);
+        // navigate('/thankyou');
+        setUserDetails({
+          name: '',
+          email: '',
+          message: ''
+        });
+      }
+    
+      
+    } catch (error) {
+      console.error('Error signing up:', error);
+      if (error.response && error.response.status === 409) {
+        toast.error('User with this email already exists');
+      } else {
+        toast.error('An error occurred during signup');
+      }
+    }
+
+    
+  };
 
   return (
     <>
@@ -39,14 +111,17 @@ const Contact = () => {
         <div className="contact-details">
           <div className="contact-details-1">
             <div className="contact-details-1-details">
-              <div className="icon-text"> <label htmlFor="name"><FaUserLarge className="icon"/></label> <input type="text" id="name" placeholder="Name" /> </div>
-              <div className="icon-text"> <label htmlFor="email"><MdEmail className="icon"/></label><input type="email" id="email" placeholder="Email" /> </div>
-              <textarea name="" id="" defaultValue="Write Here......"></textarea>
-              <div className="contact-details-1-details-button" ><button>Send Message</button></div>
+                <div className="icon-text"> <label htmlFor="name"><FaUserLarge className="icon"/></label> <input type="text" id="name" placeholder="Name" value={userDetails.name} onChange={(e)=>setUserDetails({...userDetails,name:e.target.value})}/> </div>
+                <div className="icon-text"> <label htmlFor="email"><MdEmail className="icon"/></label><input type="email" id="email" placeholder="Email" value={userDetails.email} onChange={(e)=>setUserDetails({...userDetails,email:e.target.value})}/> </div>
+                <textarea name="" id="" placeholder="Write Here......" value={userDetails.message} onChange={(e)=>setUserDetails({...userDetails,message:e.target.value})}></textarea>
+                <div className="contact-details-1-details-button" ><button onClick={handleSubmit}>Send Message</button></div>
             </div>
           </div>
 
-          <div className="contact-details-2"><img src="../Assests/contact.png" alt="Contact Us" /></div>
+          <div className="contact-details-2">
+            <h1>Contact Us</h1>
+            <img src="../Assests/contact-logo-removebg.png" alt="Contact Us" />
+          </div>
 
           <div className="contact-option">
               <div className="contact-option-box">

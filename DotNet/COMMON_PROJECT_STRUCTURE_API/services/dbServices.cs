@@ -16,7 +16,12 @@ public class dbServices{
         connectDBReadOnly();
          _connectionString = appsettings["db:connStrPrimary"];
     }
+    private readonly IConfiguration _configuration;
 
+    public dbServices(IConfiguration configuration)
+    {
+        _configuration = configuration;
+    }
 
     private void connectDBPrimary()
     {   
@@ -131,6 +136,54 @@ public class dbServices{
 
 
 // Delete end
+
+
+// get all user start
+
+       public async Task<List<Dictionary<string, object>>> executeSQLToGetAllUsers(string sq, MySqlParameter[] prms)
+        {
+            List<Dictionary<string, object>> result = new List<Dictionary<string, object>>();
+
+            using (var conn = new MySqlConnection(_connectionString))
+            {
+                try
+                {
+                    await conn.OpenAsync();
+
+                    var cmd = conn.CreateCommand();
+                    cmd.CommandText = sq;
+                    if (prms != null)
+                        cmd.Parameters.AddRange(prms);
+
+                    using (var reader = await cmd.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            Dictionary<string, object> row = new Dictionary<string, object>();
+
+                            for (int i = 0; i < reader.FieldCount; i++)
+                            {
+                                string columnName = reader.GetName(i);
+                                object columnValue = reader.GetValue(i);
+                                row[columnName] = columnValue;
+                            }
+
+                            result.Add(row);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    return null;
+                }
+            }
+
+            Console.WriteLine("Database Operation Completed Successfully");
+            return result;
+        }
+
+//get all users end 
 
     public List<Dictionary<string, object>[]> ExecuteSQLName(string query, MySqlParameter[] parameters)
     {

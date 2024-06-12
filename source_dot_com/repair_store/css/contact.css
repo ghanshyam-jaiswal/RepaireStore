@@ -11,6 +11,7 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center; */
+    /* background-color: rgb(204, 204, 216); */
 
 }
 .contact-details{
@@ -114,6 +115,9 @@
 .contact-details-1-details input::placeholder{
     color: black;
 }
+.contact-details-1-details textarea::placeholder{
+    color: black;
+}
 
 .contact-details-2{
     width: 50%;
@@ -122,11 +126,21 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    /* flex-wrap: wrap; */
+    flex-wrap: wrap;
+}
+.contact-details-2 h1{
+    /* border: 1px solid; */
+    width: 70%;
+    height: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
 }
 .contact-details-2 img{
-    width: 70%;
-    height: 70%;
+    width: 50%;
+    height: 80%;
+    /* border: 1px solid; */
 }
 .contact-option{
     width: 100%;

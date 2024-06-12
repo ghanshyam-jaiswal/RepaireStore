@@ -1,5 +1,8 @@
 import React, { useState } from 'react'
 import '../css/about.css'
+import { Link } from 'react-router-dom'
+import Footer from './Footer'
+
 const About = () => {
 
 //   let [use,setUse]=useState([
@@ -37,11 +40,11 @@ const About = () => {
               any thing.
           </p>
         </div>
-        <div className="about-box1-item2"></div>
+        <div className="about-box1-item2"><img src="..\Assests\energy-charger-logo-removebg.png" alt="" /></div>
       </div>
 
       <div className="about-box1">
-        <div className="about-box1-item2" style={{backgroundImage:'url(../Assests/8303673-removebg-preview.png)'}}></div>
+        <div className="about-box1-item2" ><img src="..\Assests\logo-removebg.png" alt="" /></div>
         <div className="about-box1-item1">
         <h2>Broken Isn’t the End</h2>
           <p>Necessity, they say, is the mother of invention—and for college students, the father of invention is probably
@@ -53,8 +56,9 @@ const About = () => {
         </div>
       </div>
 
-      <div className="about-footer-card"><h2>CARD</h2></div>
-      <h2>FOOTER</h2>
+      {/* <div className="about-footer-card"><h2>CARD</h2></div> */}
+      {/* <h2>FOOTER</h2> */}
+      <Footer/>
       
     </div>
   )
