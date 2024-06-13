@@ -1,5 +1,5 @@
 .about{
-    border: 2px solid red;
+    /* border: 2px solid red; */
     width: 100%;
     height: 90%;
     display: flex;
@@ -48,9 +48,15 @@
     background-position: center; */
 }
 .about-box1-item2 img{
-    width: 95%;
+    width: 100%;
     height: 100%;
     /* border: 1px solid red; */
+}
+.about-box1-item2 .plumber{
+    width: 50%;
+    height: 90%;
+    /* border: 1px solid red; */
+
 }
 .about-footer-card{
     width: 90%;

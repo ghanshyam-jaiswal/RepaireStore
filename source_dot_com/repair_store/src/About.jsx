@@ -44,7 +44,7 @@ const About = () => {
       </div>
 
       <div className="about-box1">
-        <div className="about-box1-item2" ><img src="..\Assests\logo-removebg.png" alt="" /></div>
+        <div className="about-box1-item2" ><img src="..\Assests\plumber-img.png" alt="image" className='plumber'/></div>
         <div className="about-box1-item1">
         <h2>Broken Isn’t the End</h2>
           <p>Necessity, they say, is the mother of invention—and for college students, the father of invention is probably

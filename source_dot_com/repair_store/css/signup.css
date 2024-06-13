@@ -5,9 +5,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-image: url(../Assests/signup-img.jpg);
+    /* background-image: url(../Assests/signup-img.jpg);
     background-size: cover;
-    background-position: center;
+    background-position: center; */
     /* filter: blur(1px); */
     /* filter: blur(80px);
   -webkit-filter: blur(0px); */

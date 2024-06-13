@@ -1,15 +1,15 @@
 .payment{
     width: 100%;
     height: 90%;
-    border: 3px solid red;
+    /* border: 3px solid red; */
     display: flex;
     justify-content: center;
     align-items: center;
-    background-image: url(../Assests/signup-img.jpg);
+    /* background-image: url(../Assests/signup-img.jpg);
     background-size: cover;
-    background-repeat: no-repeat;
+    background-repeat: no-repeat; */
     /* background-attachment: fixed; */
-    background-position: center;
+    /* background-position: center; */
 }
 .payment-body{
     width: 20%;

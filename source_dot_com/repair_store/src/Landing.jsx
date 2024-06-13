@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import '../css/landing.css'
 import { Link } from 'react-router-dom'
 import list from '../Data/product'
@@ -6,19 +6,21 @@ import { CiFacebook } from "react-icons/ci";
 import { LuInstagram } from "react-icons/lu";
 import { FaSquareXTwitter } from "react-icons/fa6";
 import { FaYoutubeSquare } from "react-icons/fa";
-
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
+import Slider from 'react-slick';
 
 const Landing = () => {
 
   let imageSlide=[
     {
-      img:'../Assests/tablet.png'
+      img:'../Assests/hero-image.jpg'
     },
     {
-      img:'../Assests/tv.png'
+      img:'tv.png'
     },
     {
-      img:'../Assests/thankyou.png'
+      img:'../Assests/test.png'
     },
   ]
 
@@ -30,6 +32,7 @@ const Landing = () => {
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 2000,
+    // pauseOnHover: false, // Disable pause on hover
   };
 
 
@@ -44,23 +47,16 @@ const Landing = () => {
   return (
     <div className='landing'>
 
-      <div className="landing-hero"></div>
+      {/* <div className="landing-hero"></div> */}
      
-        {/* <Slider {...settings} >
-          
-          {
-            imageSlide.map((item,index)=>(
-
-              // <div className="landing-hero" key={index} style={{backgroundImage:`url(${item.img})`}}> </div>
-              <div key={index} style={{backgroundImage:`url(${item.img})`}} className="landing-hero"> </div>
-
-            ))
-          }
-
-        </Slider>
-         */}
-    
-     
+      <Slider {...settings}>
+        {imageSlide.map((item, index) => (
+          // <div key={index} className="landing-hero" style={{ backgroundImage: `url(${item.img})` }}>
+          <div className="landing-hero" >
+            <img key={index} src={item.img} alt={`image${index+1}`} />
+          </div>
+        ))}
+      </Slider>
       
       
 
@@ -85,9 +81,9 @@ const Landing = () => {
       <div className="landing-back-to-top" onClick={scrollToTop}>Back-to-top</div>
       <div className="landing-footer">
         <div className="landing-footer-logo1" style={{backgroundImage: 'url("../Assests/logo-removebg.png")'}}></div>
-        <div className="landing-footer-info" style={{color: 'rgb(224, 209, 209)'}}>
-          <h1>Repair</h1>
-          <h3>Store</h3>
+        <div className="landing-footer-info landing-footer-info-title" >
+          <h1 style={{color: 'rgb(203, 203, 37)'}}>Repair</h1>
+          <h3 style={{color: 'rgb(224, 209, 209)'}} >Store</h3>
           </div>
         <div className="landing-footer-info">
           <div>About</div>
