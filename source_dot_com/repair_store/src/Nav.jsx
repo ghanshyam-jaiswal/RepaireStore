@@ -20,6 +20,10 @@ const Nav = ({count}) => {
     <>
       <div className="nav">
         <div className="nav-logo"></div>
+        <div className="nav-title">
+          <h2 style={{color: 'rgb(203, 203, 37)'}}>Repair</h2>
+          <h3 style={{color: 'rgb(224, 209, 209)'}} >Store</h3>
+        </div>
         <div className="nav-links">
           <NavLink to={"/"} className={(e)=>{return e.isActive?"red":" "}} >Home</NavLink>
           {/* <NavLink to={"/category"} className={(e)=>{return e.isActive?"red":" "}} >Category</NavLink> */}

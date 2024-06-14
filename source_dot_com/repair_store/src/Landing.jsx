@@ -14,10 +14,10 @@ const Landing = () => {
 
   let imageSlide=[
     {
-      img:'../Assests/hero-image.jpg'
+      img:'../Assests/hero4.png'
     },
     {
-      img:'tv.png'
+      img:'../Assests/hero2.jpg'
     },
     {
       img:'../Assests/test.png'
