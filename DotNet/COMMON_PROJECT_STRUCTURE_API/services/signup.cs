@@ -28,8 +28,8 @@ namespace COMMON_PROJECT_STRUCTURE_API.services
                 }
                 else
                 {
-                   var sq = @"INSERT INTO pc_student.RepaireStore (first_name, last_name, email, password, contact, street_address1, street_address2, city, state, pincode, country) 
-                               VALUES (@FIRST_NAME, @LAST_NAME, @EMAIL, @PASSWORD, @CONTACT, @STREET_ADDRESS1, @STREET_ADDRESS2, @CITY, @STATE, @PINCODE, @COUNTRY)";
+                   var sq = @"INSERT INTO pc_student.RepaireStore (first_name, last_name, email, password, contact, street_address1, street_address2, city, state, pincode, country,profile) 
+                               VALUES (@FIRST_NAME, @LAST_NAME, @EMAIL, @PASSWORD, @CONTACT, @STREET_ADDRESS1, @STREET_ADDRESS2, @CITY, @STATE, @PINCODE, @COUNTRY,@PROFILE)";
                   MySqlParameter[] insertParams = new MySqlParameter[]
                     {
                         new MySqlParameter("@FIRST_NAME", rData.addInfo["first_name"]),
@@ -42,7 +42,8 @@ namespace COMMON_PROJECT_STRUCTURE_API.services
                         new MySqlParameter("@CITY", rData.addInfo["city"]),
                         new MySqlParameter("@STATE", rData.addInfo["state"]),
                         new MySqlParameter("@PINCODE", rData.addInfo["pincode"]),
-                        new MySqlParameter("@COUNTRY", rData.addInfo["country"])
+                        new MySqlParameter("@COUNTRY", rData.addInfo["country"]),
+                        new MySqlParameter("@PROFILE", rData.addInfo["profile"])
                     };
                     var insertResult = ds.executeSQL(sq, insertParams);
 

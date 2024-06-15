@@ -3,41 +3,97 @@ import '../css/profile.css'
 import { useState } from "react";
 import { useRef } from "react";
 import { useEffect } from "react";
+import axios from 'axios';
 
-const UserProfile = () => {
+const UserProfile = ({login}) => {
 
-  let user=JSON.parse(localStorage.getItem('user'))
+  // useEffect(() => {
+  //   // Update local storage whenever userImg changes
+  //   localStorage.setItem('userImage', userImg);
+  // }, [userImg]);
 
-  let [userImg,setUserImg]=useState(localStorage.getItem('userImage') || '../Assests/user-profile-logo-img.jpg');
-  // let [userImg,setUserImg]=useState('../Assests/user-profile-logo-img.jpg');
+  // let handleImage = (e) => {
+  //   const file = e.target.files[0];
+  //   setUserImg(URL.createObjectURL(file));
+  // };
+
+  // const fileInputRef = useRef(null);
+  // const handleDivClick = () => {
+  //   fileInputRef.current.click(); // Trigger file input click event
+  // };
+
+
+  const [user, setUser] = useState('');
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Update local storage whenever userImg changes
-    localStorage.setItem('userImage', userImg);
-  }, [userImg]);
+    if (login) {
+      fetchUser();
+    }
+  }, [login]);
 
-  let handleImage = (e) => {
-    const file = e.target.files[0];
-    setUserImg(URL.createObjectURL(file));
-  };
+    const fetchUser = async () => {
+      try {
+        const response = await axios.post('http://localhost:5164/getUserByEmail', {
+          eventID: "1001",
+          addInfo: {
+            email: login  // Assuming userId is passed as prop to UserProfile
+          }
+        });
 
-  const fileInputRef = useRef(null);
-  const handleDivClick = () => {
-    fileInputRef.current.click(); // Trigger file input click event
-  };
+        console.log("login : ",login)
+        console.log("Response : ",response)
+        // setUser(response.data.rData.rMessage[0]); // Assuming response.data.users contains user details
+        const userDetailsString = response.data.rData.rMessage;
+        const userDetailsArray = userDetailsString.split("\n")[1].split(" - ");
+        const [userId, firstName, lastName, email, password, contact, streetAddress1, streetAddress2, city, state, pincode,country,profile] = userDetailsArray;
 
+          // Construct user object
+          // "Retrieved User Details: 12 - shyam - sinha - shyam@gmail.com - 007 - 1234567890 - 123 Main St - Apt 4B - raipur - cg - 10001 - india"
+
+          const user = {
+            userId,
+            firstName,
+            lastName,
+            email,
+            password,
+            contact,
+            streetAddress1,
+            streetAddress2,
+            city,
+            state,
+            pincode,
+            country,
+            profile
+          };
+        setUser(user);
+        console.log("User : ",user)
+
+      } catch (error) {
+        setError(error.message);
+      }
+    };
+
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  if (!user) {
+    return <div>Loading...</div>;
+  }
   
   return (
     <div className="profile">
       <div className="profile-body">
 
-        <div className="profile-body-img" style={{ backgroundImage: `url(${userImg})` }} onClick={handleDivClick}>
-          {/* {<img src={userImg} alt="" />} */}
-          {/* <input type="file" id="" value={userImg.img} onChange={handleImage} /> */}
+        {/* <div className="profile-body-img" style={{ backgroundImage: `url(${userImg})` }} onClick={handleDivClick}>
           <input type="file"  ref={fileInputRef}  style={{ display: 'none' }} onChange={handleImage} />
-          {/* <button onClick={handleButtonClick}>Change Profile</button> */}
-
+        </div> */}
+        <div className="profile-body-img" style={{ backgroundImage: "url('../Assests/user-profile-logo-img.jpg')" }}>
+          {/* <input type="file"  /> */}
         </div>
+
         <h1>{user.firstName} {user.lastName}</h1>
 
         <div className="profile-body-details">

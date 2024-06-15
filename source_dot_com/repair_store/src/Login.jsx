@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { toast } from 'react-toastify'
 import axios from 'axios';
 
-const Login = () => {
+const Login = ({addToProfile}) => {
 
   let [userDetails,setUserDetails]=useState({
     email:'',
@@ -49,6 +49,7 @@ const Login = () => {
         // console.log(response.data)
         // console.log(response)
         toast.success('Login Successful');
+        addToProfile(userDetails.email)
         navigate('/');
       } else {
         // console.log(response.data)

@@ -19,7 +19,9 @@ const Signup = () => {
     city:'',
     state:'',
     pincode:'',
-    country:''
+    country:'',
+    // profile:'C:\\Users\\ghanshyam\\shyam-cloned\\RepaireStore\\source_dot_com\\repair_store\\Assests\\user-profile-logo-img.jpg'
+    profile:'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freepik.com%2Ffree-photos-vectors%2Fuser-profile-pic&psig=AOvVaw2NEnLfSfXTnW2MUyXAzsK_&ust=1718536138379000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCKjxrP293YYDFQAAAAAdAAAAABAE'
   })
 
   let isValidate=()=>{
@@ -98,7 +100,8 @@ const Signup = () => {
           city: userDetails.city,
           state: userDetails.state,
           pincode: userDetails.pincode,
-          country: userDetails.country
+          country: userDetails.country,
+          profile:userDetails.profile
         }
       
     }

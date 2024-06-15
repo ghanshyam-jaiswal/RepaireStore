@@ -1,60 +1,62 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
+using MySql.Data.MySqlClient;
 
 namespace COMMON_PROJECT_STRUCTURE_API.services
 {
     public class users
     {
-        private readonly dbServices ds;
-
-        public users(IConfiguration configuration)
-        {
-            ds = new dbServices(configuration);
-        }
-
+        dbServices ds = new dbServices();
         public async Task<responseData> GetAllUsers(requestData rData)
         {
             responseData resData = new responseData();
             try
             {
-                var query = "SELECT * FROM pc_student.RepaireStore";
-                var dbData = await ds.executeSQLToGetAllUsers(query, null);
+                var query = @"SELECT * FROM pc_student.RepaireStore";
+                MySqlParameter[] myParam = new MySqlParameter[] { };
 
-                if (dbData != null)
+                var dbData = ds.executeSQL(query, myParam); 
+                if (dbData.Any())
                 {
-                    // Process the database response directly
-                    List<Dictionary<string, object>> users = new List<Dictionary<string, object>>();
-                    foreach (var table in dbData)
+                    List<string> messages = new List<string>();
+
+                    foreach (var rowSet in dbData)
                     {
-                        foreach (var row in table)
+                        foreach (var row in rowSet)
                         {
-                            // Store user data in a dictionary
-                            Dictionary<string, object> userData = new Dictionary<string, object>();
+                            List<string> rowData = new List<string>();
 
-                            // Add the column name and value to the dictionary
-                            userData[row.Key] = row.Value.ToString(); // Convert the value to string
+                            foreach (var column in row)
+                            {
+                                rowData.Add(column.ToString());
+                            }
 
-                            // Add the user data dictionary to the list of users
-                            users.Add(userData);
+                            // Now rowData contains all values from the current row
+                            string rowDataString = string.Join(" - ", rowData);
+                            messages.Add(rowDataString);
                         }
                     }
 
+                    
+                    string allUsers = string.Join(Environment.NewLine, messages);
 
-                    // Return the list of user dictionaries in the response data
-                    resData.rData["users"] = users;
-                    resData.rData["rMessage"] = "Users fetched successfully";
+                    resData.rData["rMessage"] = $"Retrieved All Users:\n{allUsers}";
                 }
                 else
                 {
-                    resData.rData["rMessage"] = "Failed to fetch users";
+                    resData.rData["rMessage"] = "No any details here...";
                 }
             }
             catch (Exception ex)
             {
-                resData.rData["rMessage"] = "An error occurred: " + ex.Message;
+                resData.rData["rMessage"] = "Exception occurred: " + ex.Message;
             }
+            
+            
             return resData;
         }
     }
 }
+

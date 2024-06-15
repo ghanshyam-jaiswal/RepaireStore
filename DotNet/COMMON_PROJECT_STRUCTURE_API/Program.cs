@@ -20,6 +20,7 @@ var builder = WebHost.CreateDefaultBuilder(args)
         s.AddSingleton<delete>();
         s.AddSingleton<contact>();
         s.AddSingleton<users>();
+        s.AddSingleton<getUserByEmail>();
         s.AddSingleton<dbServices>();
 
 
@@ -58,6 +59,7 @@ var builder = WebHost.CreateDefaultBuilder(args)
             var contact = e.ServiceProvider.GetRequiredService<contact>();
             var users = e.ServiceProvider.GetRequiredService<users>();
             var deleteService = e.ServiceProvider.GetRequiredService<delete>();
+            var getUserByEmail = e.ServiceProvider.GetRequiredService<getUserByEmail>();
 
             e.MapPost("login",
             [AllowAnonymous] async (HttpContext http) =>
@@ -79,6 +81,20 @@ var builder = WebHost.CreateDefaultBuilder(args)
                     var email = rData.addInfo["email"].ToString();
                     var password = rData.addInfo["password"].ToString();
                     var result = await loginService.Authenticate(email, password);
+                    await http.Response.WriteAsJsonAsync(result);
+                }
+            });
+
+            e.MapPost("getUserByEmail",
+            [AllowAnonymous] async (HttpContext http) =>
+            {
+                var body = await new StreamReader(http.Request.Body).ReadToEndAsync();
+                requestData rData = JsonSerializer.Deserialize<requestData>(body);
+
+                if (rData.eventID == "1001") // getUserByEmail
+                {
+                    var email = rData.addInfo["email"].ToString();
+                    var result = await getUserByEmail.GetUserByEmail(email);
                     await http.Response.WriteAsJsonAsync(result);
                 }
             });
@@ -115,9 +131,6 @@ var builder = WebHost.CreateDefaultBuilder(args)
                     await http.Response.WriteAsJsonAsync(await users.GetAllUsers(rData));
                 }
             });
-
-
-
 
 
             e.MapPost("update",
