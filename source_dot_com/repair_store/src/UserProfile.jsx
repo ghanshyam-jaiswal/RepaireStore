@@ -4,8 +4,10 @@ import { useState } from "react";
 import { useRef } from "react";
 import { useEffect } from "react";
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
-const UserProfile = ({login}) => {
+const UserProfile = () => {
 
   // useEffect(() => {
   //   // Update local storage whenever userImg changes
@@ -22,67 +24,70 @@ const UserProfile = ({login}) => {
   //   fileInputRef.current.click(); // Trigger file input click event
   // };
 
+  let navigate=useNavigate()
+
+  useEffect(()=>{
+    let check=localStorage.getItem("user")
+    if(check==='' || check===null){
+      navigate('/login')
+    }
+  },[])
 
   const [user, setUser] = useState('');
-  const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (login) {
-      fetchUser();
-    }
-  }, [login]);
-
-    const fetchUser = async () => {
+    // Retrieve the data from local storage
+    const userData = localStorage.getItem('user');
+    console.log("userData",userData)
+    if (userData) {
       try {
-        const response = await axios.post('http://localhost:5164/getUserByEmail', {
-          eventID: "1001",
-          addInfo: {
-            email: login  // Assuming userId is passed as prop to UserProfile
-          }
-        });
-
-        console.log("login : ",login)
-        console.log("Response : ",response)
-        // setUser(response.data.rData.rMessage[0]); // Assuming response.data.users contains user details
-        const userDetailsString = response.data.rData.rMessage;
-        const userDetailsArray = userDetailsString.split("\n")[1].split(" - ");
-        const [userId, firstName, lastName, email, password, contact, streetAddress1, streetAddress2, city, state, pincode,country,profile] = userDetailsArray;
-
-          // Construct user object
-          // "Retrieved User Details: 12 - shyam - sinha - shyam@gmail.com - 007 - 1234567890 - 123 Main St - Apt 4B - raipur - cg - 10001 - india"
-
-          const user = {
-            userId,
-            firstName,
-            lastName,
-            email,
-            password,
-            contact,
-            streetAddress1,
-            streetAddress2,
-            city,
-            state,
-            pincode,
-            country,
-            profile
-          };
+        // Split the hyphen-separated string into an array
+        const userDetailsArray = userData.split(" - ");
+        
+        // Map the array values to user properties
+        const [userId, firstName, lastName, email, password, contact, streetAddress1, streetAddress2, city, state, pincode, country, profile] = userDetailsArray;
+        const user = {
+          userId,
+          firstName,
+          lastName,
+          email,
+          password,
+          contact,
+          streetAddress1,
+          streetAddress2,
+          city,
+          state,
+          pincode,
+          country,
+          profile
+        };
+        
         setUser(user);
-        console.log("User : ",user)
-
+        console.log("user", user);
       } catch (error) {
-        setError(error.message);
+        console.error('Error parsing user data:', error);
       }
-    };
-
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
+    } else {
+      console.log('No user data found in local storage');
+    }
+  }, []);
 
   if (!user) {
     return <div>Loading...</div>;
   }
+
+
+  let handleLogout=()=>{
+    localStorage.removeItem('user')
+    toast.success("Logout Successful")
+    navigate("/")
+  }
   
+  let handleEditProfile=()=>{
+    navigate("/updateprofile")
+  }
+
+
   return (
     <div className="profile">
       <div className="profile-body">
@@ -104,7 +109,12 @@ const UserProfile = ({login}) => {
           <div><h4>State</h4>:<p>{user.state}</p></div>
           <div><h4>Pin Code</h4>:<p>{user.pincode}</p></div>
           <div><h4>Country</h4>:<p>{user.country}</p></div>
+          {/* <img src={user.profile} alt="profile" /> */}
         </div>
+        <div className="profile-edit">
+          <button className="btn-edit-profile" onClick={()=>handleEditProfile()}>Edit Profile</button>
+          <button className="btn-logout" onClick={()=>handleLogout()}>Logout</button>
+      </div>
       </div>
     </div>
   );

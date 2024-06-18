@@ -44,7 +44,8 @@ namespace COMMON_PROJECT_STRUCTURE_API.services
                     
                     string userDetails = string.Join(Environment.NewLine, messages);
 
-                    resData.rData["rMessage"] = $"Retrieved User Details:\n{userDetails}";
+                    // resData.rData["rMessage"] = $"Retrieved User Details:\n{userDetails}";
+                    resData.rData["rMessage"] = userDetails;
                 }
                 else
                 {

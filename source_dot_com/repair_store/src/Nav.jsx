@@ -1,10 +1,11 @@
-import React, { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import "../css/nav.css";
 import { FaShoppingCart } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
 import '../css/dropdown.css'
 import list from "../Data/product";
+import { toast } from "react-toastify";
 
 
 const Nav = ({count}) => {
@@ -14,6 +15,22 @@ const Nav = ({count}) => {
   const toggleDropdown = () => {
     setShowDropdown(!showDropdown);
   };
+
+  let navigate=useNavigate()
+
+  // let effectCall= useEffect(()=>{
+  //   let check=localStorage.getItem("user")
+  //   if(check===''|| check===null){
+  //     navigate("/")
+  //   }
+  // },[navigate])
+
+  let handleLogout=()=>{
+    localStorage.removeItem('user')
+    toast.success("Logout Successful")
+    navigate("/")
+  }
+
 
 
   return (
@@ -40,7 +57,11 @@ const Nav = ({count}) => {
           </div>
 
           {/* <NavLink to={"/signup"} className={(e)=>{return e.isActive?"red":" "}}>Sign Up</NavLink> */}
-          <NavLink to={"/login"} className={(e)=>{return e.isActive?"red":" "}} >Login</NavLink>
+
+          {localStorage.getItem("user")?
+                                  <NavLink to={"/login"} className={(e)=>{return e.isActive?"red":" "}} onClick={()=>handleLogout()}>Logout</NavLink>
+                                  :<NavLink to={"/login"} className={(e)=>{return e.isActive?"red":" "}} >Login</NavLink>}
+
           <NavLink to={"/contact"} className={(e)=>{return e.isActive?"red":" "}} >Contact</NavLink>
           <NavLink to={"/about"} className={(e)=>{return e.isActive?"red":" "}} >About</NavLink>
           <NavLink to={"/cart"}  className="nav-cart"  ><FaShoppingCart />{count}</NavLink>

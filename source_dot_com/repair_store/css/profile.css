@@ -8,21 +8,23 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
 }
 .profile-body{
     width: 40%;
-    height: 80%;
+    height: 90%;
     /* border: 1px solid ; */
     display: flex;
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
     padding: 1%;
-    box-shadow: 1px 1px 60px black;
+    box-shadow: 0px 0px 5px black;
     border-radius: 4%;
     /* background-color: rgb(209, 200, 200); */
     /* color: white; */
 }
+
 .profile-body h1{
     width: 70%;
     height: 10%;
@@ -41,7 +43,7 @@
 }
 .profile-body-details{
     width: 80%;
-    height: 50%;
+    height: 40%;
     /* border: 1px solid ; */
     padding-left: 22%;
     /* background-color: black; */
@@ -59,4 +61,32 @@
     /* margin-top: 4%; */
     /* border: 1px solid; */
     width: 25%;
+}
+
+.profile-edit{
+    width: 65%;
+    height: 8%;
+    /* border: 1px solid ; */
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.profile-edit button{
+    width: 25%;
+    height: 70%;
+    /* margin-left: 2%; */
+    border-radius: 10px;
+    border: none;
+}
+.profile-edit .btn-edit-profile{
+    background-color: rgb(144, 144, 255);
+}
+.profile-edit .btn-edit-profile:hover{
+    background-color: rgb(104, 104, 219);
+}
+.profile-edit .btn-logout{
+    background-color: rgb(236, 92, 92);
+}
+.profile-edit .btn-logout:hover{
+    background-color: rgb(211, 63, 63);
 }

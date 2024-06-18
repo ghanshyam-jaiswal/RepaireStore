@@ -22,8 +22,8 @@ const Payment = ({addToCart}) => {
     <div className='payment'>
       <div className="payment-body">
         <h1>Payment</h1>
-        <button onClick={()=>{addToCart(selectedCard);thankYou()}}>Proceed</button>
-        <button onClick={()=>handleCancel()}>Cancel</button>
+        <button className='btn-proceed' onClick={()=>{addToCart(selectedCard);thankYou()}}>Proceed</button>
+        <button className='btn-cancel' onClick={()=>handleCancel()}>Cancel</button>
       </div>
     </div>
   )

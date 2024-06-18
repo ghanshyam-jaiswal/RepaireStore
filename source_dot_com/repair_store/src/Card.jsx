@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import list from '../Data/product'
 import '../css/card.css'
@@ -18,6 +18,13 @@ const Card = () => {
     let handleCancel=()=>{
       navigate('/')
     }
+
+    useEffect(()=>{
+      let check=localStorage.getItem("user")
+      if(check==='' || check===null){
+        navigate('/login')
+      }
+    },[])
 
   return (
     <div className='card'>

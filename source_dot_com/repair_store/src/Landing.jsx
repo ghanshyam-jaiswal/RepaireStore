@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import '../css/landing.css'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import list from '../Data/product'
 import { CiFacebook } from "react-icons/ci";
 import { LuInstagram } from "react-icons/lu";
@@ -44,6 +44,8 @@ const Landing = () => {
   };
 
 
+
+
   return (
     <div className='landing'>
 
@@ -63,10 +65,10 @@ const Landing = () => {
       <div className="landing-item">
 
         {
-          list.map((item,index)=>(
+          list.map((item)=>(
 
-                <div className="landing-item-items">
-                  <Link key={item.id} to={`/card/${item.name}`} style={{textDecoration:"none"}}>
+                <div key={item.id} className="landing-item-items">
+                  <Link  to={`/card/${item.name}`} style={{textDecoration:"none"}}>
                     {/* <div className="landing-item-img" style={{backgroundImage:'url("../Assests/alarm\ watch.jpg")'}}></div> */}
                     <img src={item.img} alt="" className="landing-item-img" />
                     {/* <div className="landing-item-text">Alarm</div> */}

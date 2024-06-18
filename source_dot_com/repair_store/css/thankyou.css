@@ -4,10 +4,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-image: url('../Assests/signup-img.jpg');
+    /* background-image: url('../Assests/signup-img.jpg');
     background-size: cover;
     background-repeat: no-repeat;
-    background-position: center;
+    background-position: center; */
 }
 .thankyou-section{
     width: 23%;
@@ -17,6 +17,7 @@
    background-size: cover;
    background-repeat: no-repeat;
    background-position: center; */
+
    display: flex;
     justify-content: center;
     align-items: center;
@@ -24,6 +25,7 @@
 }
 .thankyou-section img{
     border-radius: 5px;
+    box-shadow: 0px 0px 20px black;
 }
 .thankyou-section button{
     width: 30%;

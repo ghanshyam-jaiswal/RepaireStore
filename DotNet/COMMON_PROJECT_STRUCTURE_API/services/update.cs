@@ -38,6 +38,7 @@ namespace COMMON_PROJECT_STRUCTURE_API.services
                                   state = @STATE, 
                                   pincode = @PINCODE, 
                                   country = @COUNTRY
+                                  profile = @PROFILE
                               WHERE email = @EMAIL AND password = @PASSWORD";
 
                 MySqlParameter[] parameters = new MySqlParameter[]
@@ -52,7 +53,8 @@ namespace COMMON_PROJECT_STRUCTURE_API.services
                     new MySqlParameter("@CITY", rData.addInfo["city"]),
                     new MySqlParameter("@STATE", rData.addInfo["state"]),
                     new MySqlParameter("@PINCODE", rData.addInfo["pincode"]),
-                    new MySqlParameter("@COUNTRY", rData.addInfo["country"])
+                    new MySqlParameter("@COUNTRY", rData.addInfo["country"]),
+                    new MySqlParameter("@PROFILE", rData.addInfo["profile"])
                 };
 
                 var (affectedRows, _) = await _dbServices.executeSQLForUpdate(query, parameters);

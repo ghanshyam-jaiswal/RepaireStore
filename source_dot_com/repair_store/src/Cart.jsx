@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import '../css/cart.css'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 const Cart = ({cart,setCart}) => {
 
   let cartDelete=(dataToDelete)=>{
@@ -9,6 +9,17 @@ const Cart = ({cart,setCart}) => {
     console.log('deleted')
     setCart(newData)
   }
+
+  let navigate=useNavigate()
+  
+  useEffect(()=>{
+    let check=localStorage.getItem("user")
+    if(check==='' || check===null){
+      navigate('/login')
+    }
+  },[])
+
+
   return (
     <div className='cart'>
       {/* <h1>Cart</h1> */}
