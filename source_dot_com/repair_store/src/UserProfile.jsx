@@ -96,7 +96,7 @@ const UserProfile = () => {
           <input type="file"  ref={fileInputRef}  style={{ display: 'none' }} onChange={handleImage} />
         </div> */}
         <div className="profile-body-img" style={{ backgroundImage: "url('../Assests/user-profile-logo-img.jpg')" }}>
-          {/* <input type="file"  /> */}
+          <input type="file"  />
         </div>
 
         <h1>{user.firstName} {user.lastName}</h1>

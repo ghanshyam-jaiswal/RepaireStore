@@ -15,7 +15,7 @@ var builder = WebHost.CreateDefaultBuilder(args)
         IConfiguration appsettings = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
         s.AddSingleton<login>();
         s.AddSingleton<signup>();
-        s.AddSingleton<Update>();
+        s.AddSingleton<update>();
         s.AddSingleton<LoginService>();
         s.AddSingleton<delete>();
         s.AddSingleton<contact>();
@@ -55,7 +55,7 @@ var builder = WebHost.CreateDefaultBuilder(args)
             var login = e.ServiceProvider.GetRequiredService<login>();
             var loginService = e.ServiceProvider.GetRequiredService<LoginService>();
             var signup = e.ServiceProvider.GetRequiredService<signup>();
-            var update = e.ServiceProvider.GetRequiredService<Update>();
+            var update = e.ServiceProvider.GetRequiredService<update>();
             var contact = e.ServiceProvider.GetRequiredService<contact>();
             var users = e.ServiceProvider.GetRequiredService<users>();
             var deleteService = e.ServiceProvider.GetRequiredService<delete>();
@@ -133,13 +133,13 @@ var builder = WebHost.CreateDefaultBuilder(args)
             });
 
 
-            e.MapPost("update",
+            e.MapPost("updateById",
             [AllowAnonymous] async (HttpContext http) =>
             {
                 var body = await new StreamReader(http.Request.Body).ReadToEndAsync();
                 requestData rData = JsonSerializer.Deserialize<requestData>(body);
                 if (rData.eventID == "1001") // update
-                    await http.Response.WriteAsJsonAsync(await update.UpdateByEmailAndPassword(rData));
+                    await http.Response.WriteAsJsonAsync(await update.UpdateById(rData));
             });
 
             e.MapPost("delete",

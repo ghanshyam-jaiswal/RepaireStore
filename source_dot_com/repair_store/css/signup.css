@@ -14,14 +14,14 @@
 }
 .signup form{
     width: 40%;
-    height: 80%;
+    height: 90%;
     /* border: 1px solid; */
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
     padding:1%;
-    box-shadow: 0px 0px 30px black;
+    box-shadow: 0px 0px 10px black;
     border-radius: 15px;
     /* background-color: black; */
    
@@ -38,6 +38,7 @@
 .signup form .signup-div input{
     border: none;
     background-color: rgb(241, 238, 232);
+    padding-left: 2%;
 }
 .signup form .signup-div input:hover{
     background-color: rgb(233, 229, 221);
@@ -62,6 +63,13 @@
     /* border: 1px solid; */
     width: 90%;
     height: 15%;
+}
+.signup-email .icon{
+    /* border: 1px solid; */
+    /* font-size: 5vh; */
+    width: 7%;
+    height: 19%;
+    padding-top: 0.5%;
 }
 .signup-email input{
     height: 39%;
@@ -100,9 +108,15 @@
     justify-content: center;
     align-items: end;
 }
-.signup-submit input{
+.signup-submit button{
     width: 50%;
     height: 65%;
     border-radius: 5px;
-    /* background-color: rgb(81, 81, 222); */
+    border: none;
+    color: white;
+    background-color: rgb(81, 81, 222);
 }
+.signup-submit button:hover{
+    background-color: rgb(10, 10, 218);
+}
+

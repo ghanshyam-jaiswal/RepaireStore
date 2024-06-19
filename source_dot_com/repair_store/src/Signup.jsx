@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { toast } from 'react-toastify'
 import axios from 'axios';
+import { ImEyeBlocked } from "react-icons/im";
+import { ImEye } from "react-icons/im";
 
 const Signup = () => {
 
@@ -135,6 +137,8 @@ const Signup = () => {
     
   };
 
+  let [visible,setVisible]=useState(false)
+
 
   return (
     <div className='signup'>
@@ -151,12 +155,12 @@ const Signup = () => {
             <input type="email" id="email" placeholder='eg: shyam@gmail.com' value={userDetails.email} onChange={e=>setUserDetails({...userDetails,email:e.target.value})} />
           </div>
           <div className="signup-email">
-            <label htmlFor="pass">Password</label><br/><br/>
-            <input type="password" id="pass" placeholder='Enter Password' value={userDetails.password} onChange={e=>setUserDetails({...userDetails,password:e.target.value})} />
+            <label htmlFor="pass">Password {visible ? <ImEyeBlocked onClick={() => setVisible(!visible)} className='icon'/> : <ImEye onClick={() => setVisible(!visible)} className='icon' />}</label><br/><br/>
+            <input type={visible ? 'text' : 'password'} id="pass" placeholder='Enter Password' value={userDetails.password} onChange={e=>setUserDetails({...userDetails,password:e.target.value})} />
           </div>
           <div className="signup-contact">
             <label htmlFor="contact">Contact</label><br/><br/>
-            <input type="tel" id="contact" placeholder='Enter Number' value={userDetails.contact} onChange={e=>setUserDetails({...userDetails,contact:e.target.value})} />
+            <input type="tel" id="contact" placeholder='Enter Number' pattern="[0-9]{10}"  value={userDetails.contact} onChange={e=>setUserDetails({...userDetails,contact:e.target.value})} />
           </div>
           <div className="signup-address">
             <label htmlFor="address">Address</label><br/><br/>
@@ -168,7 +172,8 @@ const Signup = () => {
             <input type="text" placeholder='Country' value={userDetails.country} onChange={e=>setUserDetails({...userDetails,country:e.target.value})} />
           </div>
           <div className="signup-submit">
-            <input type="submit" value={'Sign up'} style={{backgroundColor:'rgb(81, 81, 222)',color:'white'}}/>
+            {/* <input type="submit" value={'Sign up'} style={{backgroundColor:'rgb(81, 81, 222)',color:'white'}}/> */}
+            <button type='submit'>Sign up</button>
           </div>
           
         </div>

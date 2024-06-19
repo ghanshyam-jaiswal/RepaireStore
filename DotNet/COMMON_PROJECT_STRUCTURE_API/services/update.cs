@@ -3,14 +3,15 @@ using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 using Microsoft.Extensions.Logging;
 
+
 namespace COMMON_PROJECT_STRUCTURE_API.services
 {
-    public class Update
+    public class update
     {
         private readonly dbServices _dbServices;
-        private readonly ILogger<Update> _logger;
+        private readonly ILogger<update> _logger;
 
-        public Update(dbServices dbServices, ILogger<Update> logger)
+        public update(dbServices dbServices, ILogger<update> logger)
         {
             _dbServices = dbServices;
             _logger = logger;
@@ -29,7 +30,8 @@ namespace COMMON_PROJECT_STRUCTURE_API.services
                 var password = rData.addInfo["password"].ToString();
 
                 var query = @"UPDATE pc_student.RepaireStore 
-                              SET first_name = @FIRST_NAME, 
+                              SET user_id = @Id,
+                                  first_name = @FIRST_NAME, 
                                   last_name = @LAST_NAME, 
                                   contact = @CONTACT, 
                                   street_address1 = @STREET_ADDRESS1, 
@@ -37,16 +39,17 @@ namespace COMMON_PROJECT_STRUCTURE_API.services
                                   city = @CITY, 
                                   state = @STATE, 
                                   pincode = @PINCODE, 
-                                  country = @COUNTRY
+                                  country = @COUNTRY,
                                   profile = @PROFILE
                               WHERE email = @EMAIL AND password = @PASSWORD";
 
                 MySqlParameter[] parameters = new MySqlParameter[]
                 {
+                    new MySqlParameter("@Id", rData.addInfo["user_id"]),
                     new MySqlParameter("@FIRST_NAME", rData.addInfo["first_name"]),
                     new MySqlParameter("@LAST_NAME", rData.addInfo["last_name"]),
-                    new MySqlParameter("@EMAIL", email),
-                    new MySqlParameter("@PASSWORD", password),
+                    new MySqlParameter("@EMAIL", rData.addInfo["email"]),
+                    new MySqlParameter("@PASSWORD", rData.addInfo["password"]),
                     new MySqlParameter("@CONTACT", rData.addInfo["contact"]),
                     new MySqlParameter("@STREET_ADDRESS1", rData.addInfo["street_address1"]),
                     new MySqlParameter("@STREET_ADDRESS2", rData.addInfo["street_address2"]),
@@ -73,5 +76,128 @@ namespace COMMON_PROJECT_STRUCTURE_API.services
                 return $"An error occurred: {ex.Message}";
             }
         }
+
+        dbServices ds = new dbServices();
+        public async Task<responseData> UpdateById(requestData rData)
+        {
+            responseData resData = new responseData();
+
+            try
+            {
+                // Your update query
+                var query = @"UPDATE pc_student.RepaireStore 
+                            SET first_name = @FIRST_NAME, 
+                                  last_name = @LAST_NAME, 
+                                  email = @EMAIL,
+                                  password = @PASSWORD,
+                                  contact = @CONTACT, 
+                                  street_address1 = @STREET_ADDRESS1, 
+                                  street_address2 = @STREET_ADDRESS2, 
+                                  city = @CITY, 
+                                  state = @STATE, 
+                                  pincode = @PINCODE, 
+                                  country = @COUNTRY,
+                                  profile = @PROFILE
+                           WHERE user_id = @USER_ID;";
+
+                // Your parameters
+                MySqlParameter[] myParam = new MySqlParameter[]
+                {
+                    // new MySqlParameter("@Id", rData.addInfo["id"]),
+                    // new MySqlParameter("@Name", rData.addInfo["name"]),
+                    //  new MySqlParameter("@Email", rData.addInfo["email"]),
+                    //  new MySqlParameter("@Password", rData.addInfo["password"]),
+                    // new MySqlParameter("@Mobile", rData.addInfo["mobile"]),
+                    // new MySqlParameter("@State", rData.addInfo["state"]),
+                    // new MySqlParameter("@Pin", rData.addInfo["pin"])
+
+                    new MySqlParameter("@USER_ID", rData.addInfo["user_id"]),
+                    new MySqlParameter("@FIRST_NAME", rData.addInfo["first_name"]),
+                    new MySqlParameter("@LAST_NAME", rData.addInfo["last_name"]),
+                    new MySqlParameter("@EMAIL", rData.addInfo["email"]),
+                    new MySqlParameter("@PASSWORD", rData.addInfo["password"]),
+                    new MySqlParameter("@CONTACT", rData.addInfo["contact"]),
+                    new MySqlParameter("@STREET_ADDRESS1", rData.addInfo["street_address1"]),
+                    new MySqlParameter("@STREET_ADDRESS2", rData.addInfo["street_address2"]),
+                    new MySqlParameter("@CITY", rData.addInfo["city"]),
+                    new MySqlParameter("@STATE", rData.addInfo["state"]),
+                    new MySqlParameter("@PINCODE", rData.addInfo["pincode"]),
+                    new MySqlParameter("@COUNTRY", rData.addInfo["country"]),
+                    new MySqlParameter("@PROFILE", rData.addInfo["profile"])
+
+                };
+
+                // Condition to execute the update query
+                bool shouldExecuteUpdate = true;
+
+                if (shouldExecuteUpdate)
+                {
+                    // int rowsAffected = ds.ExecuteUpdateSQL(query, myParam);
+                    int rowsAffected = ds.ExecuteUpdateSQL(query, myParam);
+
+                    if (rowsAffected > 0)
+                    {
+                        resData.rData["rMessage"] = "UPDATE SUCCESSFULLY.";
+                    }
+                    else
+                    {
+                        resData.rData["rMessage"] = "No rows affected. Update failed.";
+                    }
+                }
+                else
+                {
+                    resData.rData["rMessage"] = "Condition not met. Update query not executed.";
+                }
+            }
+            catch (Exception ex)
+            {
+                resData.rData["rMessage"] = "Exception occurred: " + ex.Message;
+            }
+            return resData;
+        }
+
+        public async Task<responseData> Delete(requestData rData)
+        {
+            responseData resData = new responseData();
+
+            try
+            {
+                // Your delete query
+                var query = @"DELETE FROM pc_student.giganexus WHERE id = @Id;";
+
+                // Your parameters
+                MySqlParameter[] myParam = new MySqlParameter[]
+                {
+                    new MySqlParameter("@Id", rData.addInfo["id"])
+                };
+
+                // Condition to execute the delete query
+                bool shouldExecuteDelete = true;
+
+                if (shouldExecuteDelete)
+                {
+                    int rowsAffected = ds.ExecuteUpdateSQL(query, myParam);
+
+                    if (rowsAffected > 0)
+                    {
+                        resData.rData["rMessage"] = "DELETE SUCCESSFULLY.";
+                    }
+                    else
+                    {
+                        resData.rData["rMessage"] = "No rows affected. Delete failed.";
+                    }
+                }
+                else
+                {
+                    resData.rData["rMessage"] = "Condition not met. Delete query not executed.";
+                }
+            }
+            catch (Exception ex)
+            {
+                resData.rData["rMessage"] = "Exception occurred: " + ex.Message;
+            }
+            return resData;
+        }
+
     }
 }
