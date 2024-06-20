@@ -24,10 +24,29 @@
     /* background-color: rgb(209, 200, 200); */
     /* color: white; */
 }
+.profile-body .upload-btn{
+    width: 70%;
+    height: 4.5%;
+    /* border: 1px solid; */
+    display: flex;
+    /* align-items: center; */
+    justify-content: center;
+}
+.profile-body .upload-btn button{
+    width: 18%;
+    height: 100%;
+    border: none;
+    border-radius: 20px;
+    background-color: rgb(23, 192, 23);
+
+}
+.profile-body .upload-btn button:hover{
+    background-color: rgb(19, 163, 19);
+}
 
 .profile-body h1{
     width: 70%;
-    height: 10%;
+    height: 5%;
     /* border: 1px solid; */
     display: flex;
     justify-content: center;
@@ -77,9 +96,10 @@
     /* margin-left: 2%; */
     border-radius: 10px;
     border: none;
+    color: white;
 }
 .profile-edit .btn-edit-profile{
-    background-color: rgb(144, 144, 255);
+    background-color: rgb(124, 124, 233);
 }
 .profile-edit .btn-edit-profile:hover{
     background-color: rgb(104, 104, 219);

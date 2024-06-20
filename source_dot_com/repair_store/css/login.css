@@ -45,20 +45,49 @@
         flex-wrap: wrap;
         /* border: 2px solid ; */
         width: 100%;
-        height: 80%;
+        height: 85%;
         padding: 2%;
     
 
     }
-    .login form input{
+    .login form .icon-text{
         height: 22%;
-        width: 72%;
+        width: 90%;
+        /* border: 1px solid; */
         padding-left: 5%;
+        display: flex;
+        align-items: center;
         border-radius: 5px;
-        border: none;
-        /* background: transparent; */
+        /* justify-content: space-evenly; */
+        /* flex-wrap: wrap; */
         background-color: rgb(171, 171, 214);
-        color: black;
+    }
+    .login form .icon-text .icon{
+        font-size: 1.2vw;
+    }
+    .login form .icon-text input{
+        width: 100%;
+        height: 100%;
+        border-radius: 5px;
+        border-top-left-radius: 0px;
+        border-bottom-left-radius: 0px;
+        outline: none;
+        margin-left: 4%;
+        border: none;
+        /* margin-left: 4%; */
+        padding-left:5% ;
+        background-color: transparent;
+        /* border: 1px solid; */
+    }
+
+    .login form input{
+        /* height: 22%; */
+        /* width: 72%; */
+        /* border-radius: 5px; */
+        /* border: none; */
+        /* background: transparent; */
+        /* background-color: rgb(171, 171, 214); */
+        /* color: black; */
         /* font-weight: bold; */
         /* font-size:medium ; */
         
@@ -67,7 +96,7 @@
     .login form input::placeholder{
         color: black;
     }
-    .login form input:hover{
+    .login form .icon-text:hover{
         background-color: rgb(155, 155, 218);
     }
     .login form .submit-btn{

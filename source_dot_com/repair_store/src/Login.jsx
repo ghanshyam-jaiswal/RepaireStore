@@ -4,6 +4,11 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { toast } from 'react-toastify'
 import axios from 'axios';
+import { MdEmail } from "react-icons/md";
+import { ImEyeBlocked } from "react-icons/im";
+import { ImEye } from "react-icons/im";
+
+
 
 const Login = () => {
 
@@ -77,6 +82,7 @@ const Login = () => {
     }
   };
 
+  let [visible,setVisible]=useState(false)
 
 
   return (
@@ -84,8 +90,11 @@ const Login = () => {
     <div className='login'>
     <h1>Login </h1>
     <form >
-      <input type='email' placeholder='Email' value={userDetails.email} onChange={e=>setUserDetails({...userDetails,email:e.target.value})} /><br/><br/>
-      <input type='password' placeholder='Password' value={userDetails.password} onChange={e=>setUserDetails({...userDetails,password:e.target.value})} /><br/><br/>
+      {/* <input type='email' placeholder='Email' value={userDetails.email} onChange={e=>setUserDetails({...userDetails,email:e.target.value})} /><br/><br/> */}
+      <div className="icon-text"> <label htmlFor="email"><MdEmail className="icon"/></label> <input type="email" id="email" placeholder="Email" value={userDetails.email} onChange={(e)=>setUserDetails({...userDetails,email:e.target.value})}/> </div>
+      <div className="icon-text"> <label htmlFor="pass">{visible ? <ImEyeBlocked onClick={() => setVisible(!visible)} className='icon'/> : <ImEye onClick={() => setVisible(!visible)} className='icon' />}</label> <input type={visible?'text':'password'} id="pass" placeholder="Password" value={userDetails.password} onChange={(e)=>setUserDetails({...userDetails,password:e.target.value})}/> </div>
+
+      {/* <input type='password' placeholder='Password' value={userDetails.password} onChange={e=>setUserDetails({...userDetails,password:e.target.value})} /><br/><br/> */}
       {/* <input type='submit' value='Login' className='submit-btn' /> */}
       <button className='submit-btn' onClick={handleLogin}>Login</button>
       <button className='submit-btn' onClick={()=>handleCreateAccount()}>Create Account</button>

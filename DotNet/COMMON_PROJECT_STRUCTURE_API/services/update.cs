@@ -103,13 +103,6 @@ namespace COMMON_PROJECT_STRUCTURE_API.services
                 // Your parameters
                 MySqlParameter[] myParam = new MySqlParameter[]
                 {
-                    // new MySqlParameter("@Id", rData.addInfo["id"]),
-                    // new MySqlParameter("@Name", rData.addInfo["name"]),
-                    //  new MySqlParameter("@Email", rData.addInfo["email"]),
-                    //  new MySqlParameter("@Password", rData.addInfo["password"]),
-                    // new MySqlParameter("@Mobile", rData.addInfo["mobile"]),
-                    // new MySqlParameter("@State", rData.addInfo["state"]),
-                    // new MySqlParameter("@Pin", rData.addInfo["pin"])
 
                     new MySqlParameter("@USER_ID", rData.addInfo["user_id"]),
                     new MySqlParameter("@FIRST_NAME", rData.addInfo["first_name"]),
@@ -123,6 +116,54 @@ namespace COMMON_PROJECT_STRUCTURE_API.services
                     new MySqlParameter("@STATE", rData.addInfo["state"]),
                     new MySqlParameter("@PINCODE", rData.addInfo["pincode"]),
                     new MySqlParameter("@COUNTRY", rData.addInfo["country"]),
+                    new MySqlParameter("@PROFILE", rData.addInfo["profile"])
+
+                };
+
+                // Condition to execute the update query
+                bool shouldExecuteUpdate = true;
+
+                if (shouldExecuteUpdate)
+                {
+                    // int rowsAffected = ds.ExecuteUpdateSQL(query, myParam);
+                    int rowsAffected = ds.ExecuteUpdateSQL(query, myParam);
+
+                    if (rowsAffected > 0)
+                    {
+                        resData.rData["rMessage"] = "UPDATE SUCCESSFULLY.";
+                    }
+                    else
+                    {
+                        resData.rData["rMessage"] = "No rows affected. Update failed.";
+                    }
+                }
+                else
+                {
+                    resData.rData["rMessage"] = "Condition not met. Update query not executed.";
+                }
+            }
+            catch (Exception ex)
+            {
+                resData.rData["rMessage"] = "Exception occurred: " + ex.Message;
+            }
+            return resData;
+        }
+        public async Task<responseData> UpdateUserPhotoById(requestData rData)
+        {
+            responseData resData = new responseData();
+
+            try
+            {
+                // Your update query
+                var query = @"UPDATE pc_student.RepaireStore 
+                            SET profile = @PROFILE
+                           WHERE user_id = @USER_ID;";
+
+                // Your parameters
+                MySqlParameter[] myParam = new MySqlParameter[]
+                {
+
+                    new MySqlParameter("@USER_ID", rData.addInfo["user_id"]),
                     new MySqlParameter("@PROFILE", rData.addInfo["profile"])
 
                 };

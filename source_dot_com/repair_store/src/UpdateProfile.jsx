@@ -60,19 +60,7 @@ const UpdateProfile = () => {
         const userDetailsArray = userData.split(" - ");
         const [userId, firstName, lastName, email, password, contact, streetAddress1, streetAddress2, city, state, pincode, country, profile] = userDetailsArray;
         setUserDetails({
-          userId,
-          firstName,
-          lastName,
-          email,
-          password,
-          contact,
-          streetAddress1,
-          streetAddress2,
-          city,
-          state,
-          pincode,
-          country,
-          profile
+          userId,firstName,lastName,email,password,contact,streetAddress1,streetAddress2,city,state,pincode,country,profile
         })
       },[])
 
@@ -137,9 +125,9 @@ const UpdateProfile = () => {
             } else {
               toast.error('An error occurred during Update');
             }
-        }
+          }
 
-       }
+      }
 
        let handleCancel=()=>{
         navigate("/profile")
@@ -198,7 +186,7 @@ const UpdateProfile = () => {
             <input type="text" placeholder='Street Address 2' value={userDetails.streetAddress2} onChange={e=>setUserDetails({...userDetails,streetAddress2:e.target.value})} />
             <input type="text" placeholder='City' value={userDetails.city} onChange={e=>setUserDetails({...userDetails,city:e.target.value})}/>
             <input type="text" placeholder='state' value={userDetails.state} onChange={e=>setUserDetails({...userDetails,state:e.target.value})}/>
-            <input type="number" placeholder='Postal / Zip Code' max={6} min={6} value={userDetails.pincode} onChange={e=>setUserDetails({...userDetails,pincode:e.target.value})}/>
+            <input type="number" placeholder='Postal / Zip Code' value={userDetails.pincode} onChange={e=>setUserDetails({...userDetails,pincode:e.target.value})}/>
             <input type="text" placeholder='Country' value={userDetails.country} onChange={e=>setUserDetails({...userDetails,country:e.target.value})} />
           </div>
           <div className="update-submit">

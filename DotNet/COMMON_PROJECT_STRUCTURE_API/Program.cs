@@ -142,6 +142,15 @@ var builder = WebHost.CreateDefaultBuilder(args)
                     await http.Response.WriteAsJsonAsync(await update.UpdateById(rData));
             });
 
+            e.MapPost("updateUserPhotoById",
+            [AllowAnonymous] async (HttpContext http) =>
+            {
+                var body = await new StreamReader(http.Request.Body).ReadToEndAsync();
+                requestData rData = JsonSerializer.Deserialize<requestData>(body);
+                if (rData.eventID == "1001") // update
+                    await http.Response.WriteAsJsonAsync(await update.UpdateUserPhotoById(rData));
+            });
+
             e.MapPost("delete",
             [AllowAnonymous] async (HttpContext http) =>
             {
