@@ -9,10 +9,8 @@ import { toast } from "react-toastify";
 
 const UserProfile = () => {
 
-  // useEffect(() => {
-  //   // Update local storage whenever userImg changes
-  //   localStorage.setItem('userImage', userImg);
-  // }, [userImg]);
+  let navigate=useNavigate()
+
 
   let [userImage,setUserImg]=useState("")
   const [file, setFile] = useState(null);
@@ -24,11 +22,9 @@ const UserProfile = () => {
 
 })
 
+
+
   let handleImage = (e) => {
-    // const selectedFile  = e.target.files[0];
-    // setUserImg(URL.createObjectURL(selectedFile ));
-    // setFile(selectedFile)
-    // console.log("userImage",userImage) // it does show immediate, it loads.
 
     const file = e.target.files[0];
     const reader = new FileReader();
@@ -40,7 +36,6 @@ const UserProfile = () => {
     if (file) {
       reader.readAsDataURL(file);
     }
-
   };
 
   const fileInputRef = useRef(null);
@@ -49,19 +44,19 @@ const UserProfile = () => {
     fileInputRef.current.click(); // Trigger file input click event
   };
 
-  // const formData = new FormData();
-  // formData.append('file', file);
-
 
   useEffect(()=>{
     const userData = localStorage.getItem('user');
-    const userDetailsArray = userData.split(" - ");
+    // console.log("profile clicked",userData)
+    if(userData){
+      const userDetailsArray = userData.split(" - ");
     const [userId, firstName, lastName, email, password, contact, streetAddress1, streetAddress2, city, state, pincode, country, profile] = userDetailsArray;
     setUserDetails({userId,profile,email})
     console.log("userDetails",userDetails)
+    }
   },[])
 
-  
+
   let handleUploadPhoto= async ()=>{
     // e.preventDefault()
     // console.log("userDetails-handleUploadPhoto",userDetails)
@@ -73,26 +68,34 @@ const UserProfile = () => {
         user_id: userDetails.userId,
         profile: userDetails.profile,
         // profile: userImage,
-
       }
-    
     }
 
     try {
       const response = await axios.post('http://localhost:5164/updateUserPhotoById', payload);
       console.log("response",response)
-      if(response.data.rData.rMessage==='No rows affected. Update failed.'){
+      if(response.data.rData.rMessage==='No rows affected. Update failed.')
+      {
         toast.error("Already Exists")
       }
-      else if(response.data.rData.rMessage==='UPDATE SUCCESSFULLY.'){
-        console.log('Updated Successfully');
-        console.log("userDetails-handleUploadPhoto",userDetails)
+      else if(response.data.rData.rMessage==='UPDATE SUCCESSFULLY.')
+      {
         console.log("userImage",userImage)
-        console.log("file",file)
-        toast.success('Updated Successfully');
+        if(file===null || file===''){
+          toast.warn("Upload Profile")
+        }
+        else if(userDetails.profile){
+          console.log('Updated Successfully');
+          console.log("userDetails-handleUploadPhoto",userDetails)
+          console.log("userImage",userImage)
+          console.log("file",file)
+          toast.success('Updated Successfully');
+          // window.location.reload();
+        }
+        else{
+          toast.warn("Upload... Profile")
+        }
         
-        // use here to fetch 
-
         try{
           const response2 = await axios.post('http://localhost:5164/getUserByEmail', {
                   eventID: "1001",
@@ -102,8 +105,9 @@ const UserProfile = () => {
                 });
           console.log("response2",response2)
           localStorage.setItem('user',response2.data.rData.rMessage);
-
-      } 
+          navigate("/profile")
+          
+        } 
         catch (error)
         {
           toast.error(error.message);
@@ -123,7 +127,6 @@ const UserProfile = () => {
 
   }
 
-  let navigate=useNavigate()
 
   useEffect(()=>{
     let check=localStorage.getItem("user")
@@ -145,21 +148,7 @@ const UserProfile = () => {
         
         // Map the array values to user properties
         const [userId, firstName, lastName, email, password, contact, streetAddress1, streetAddress2, city, state, pincode, country, profile] = userDetailsArray;
-        const user = {
-          userId,
-          firstName,
-          lastName,
-          email,
-          password,
-          contact,
-          streetAddress1,
-          streetAddress2,
-          city,
-          state,
-          pincode,
-          country,
-          profile
-        };
+        const user = {userId,firstName,lastName,email, password,contact,streetAddress1,streetAddress2,city,state,pincode,country,profile};
         
         setUser(user);
         setUserImg(user.profile)
@@ -188,6 +177,60 @@ const UserProfile = () => {
     navigate("/updateprofile")
   }
 
+  let handleImageRemove= async ()=>{
+    // e.preventDefault()
+    // console.log("userDetails",userDetails)
+
+    let payload={
+      eventID: "1001",
+      addInfo: {
+        user_id: userDetails.userId,
+      }
+    }
+
+    try {
+      const response = await axios.post('http://localhost:5164/deleteUserPhoto', payload);
+      console.log(response)
+      if(response.data.rData.rMessage==='No rows affected. Delete failed.'){
+        toast.error("Already Exists")
+      }
+      else if(response.data.rData.rMessage==='DELETE SUCCESSFULLY.'){
+
+        if(user.profile===''|| user.profile===null){
+          toast.warn("Upload Profile")
+        }
+        else{
+          console.log('Updated Successfully');
+          toast.success('Updated Successfully');
+        }
+      
+        try{
+          const response2 = await axios.post('http://localhost:5164/getUserByEmail', {
+                  eventID: "1001",
+                  addInfo: {
+                    email: userDetails.email  // Assuming userId is passed as prop to UserProfile
+                  }
+                });
+          console.log("response2",response2)
+          localStorage.setItem('user',response2.data.rData.rMessage);
+      } 
+      catch (error)
+      {
+        toast.error(error.message);
+      }
+      }
+    
+      
+    } catch (error) {
+        console.error('Error Update:', error);
+        if (error.response && error.response.status === 409) {
+          toast.error('User with this email already exists');
+        } else {
+          toast.error('An error occurred during Update');
+        }
+     }
+
+  }
 
   return (
     <div className="profile">
@@ -200,8 +243,9 @@ const UserProfile = () => {
           {/* <img src={user.profile} alt="" /> */}
           <input type="file"  ref={fileInputRef} onChange={handleImage} style={{display:'none'}} placeholder="select image"/>
         </div>
-        <div className="upload-btn">
-          <button onClick={()=>handleUploadPhoto()} >Upload</button>
+        <div className="upload-btns">
+          <button onClick={()=>handleUploadPhoto()} className="upload-btn">{user.profile?'Change':'Upload'}</button>
+          <button onClick={()=>handleImageRemove()} className="remove-btn">Remove</button>
         </div>
 
 
@@ -210,12 +254,12 @@ const UserProfile = () => {
 
         <div className="profile-body-details">
           <div><h4>Email</h4>:<p>{user.email}</p></div>
-          <div><h4>Contact</h4>:<p>{user.contact}</p></div>
-          <div><h4>Address</h4>:<p>{user.streetAddress1} {user.streetAddress2}</p></div>
-          <div><h4>City</h4>:<p>{user.city}</p></div>
-          <div><h4>State</h4>:<p>{user.state}</p></div>
-          <div><h4>Pin Code</h4>:<p>{user.pincode}</p></div>
-          <div><h4>Country</h4>:<p>{user.country}</p></div>
+          <div><h4>Contact</h4>:<p>{user.contact?user.contact:'--'}</p></div>
+          <div><h4>Address</h4>:<p>{user.streetAddress1}{ user.streetAddress2}</p></div>
+          <div><h4>City</h4>:<p>{user.city?user.city:'--'}</p></div>
+          <div><h4>State</h4>:<p>{user.state?user.state:'--'}</p></div>
+          <div><h4>Pin Code</h4>:<p>{user.pincode?user.pincode:'--'}</p></div>
+          <div><h4>Country</h4>:<p>{user.country?user.country:'--'}</p></div>
           {/* <img src={user.profile} alt="profile" /> */}
         </div>
         <div className="profile-edit">

@@ -28,6 +28,12 @@ var builder = WebHost.CreateDefaultBuilder(args)
         s.AddControllers();
         s.AddCors();
 
+        s.AddLogging(logging =>
+        {
+            logging.ClearProviders(); // Clear the default logging providers
+            logging.AddConsole();
+            logging.AddDebug();
+        });
 
         // s.AddAuthentication("SourceJWT").AddScheme<SourceJwtAuthenticationSchemeOptions, SourceJwtAuthenticationHandler>("SourceJWT", options =>
         // {
@@ -155,9 +161,22 @@ var builder = WebHost.CreateDefaultBuilder(args)
             [AllowAnonymous] async (HttpContext http) =>
             {
                 var body = await new StreamReader(http.Request.Body).ReadToEndAsync();
-                requestData rData = JsonSerializer.Deserialize<requestData>(body);
+                var rData = JsonSerializer.Deserialize<requestData>(body);
                 if (rData.eventID == "1001") // delete
+                {
                     await http.Response.WriteAsJsonAsync(await deleteService.Delete(rData));
+                }
+            });
+
+            e.MapPost("deleteUserPhoto",
+            [AllowAnonymous] async (HttpContext http) =>
+            {
+                var body = await new StreamReader(http.Request.Body).ReadToEndAsync();
+                var rData = JsonSerializer.Deserialize<requestData>(body);
+                if (rData.eventID == "1001") // delete
+                {
+                    await http.Response.WriteAsJsonAsync(await deleteService.DeleteUserPhoto(rData));
+                }
             });
 
             IConfiguration appsettings = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();

@@ -7,49 +7,102 @@ namespace COMMON_PROJECT_STRUCTURE_API.services
 {
     public class delete
     {
-        private readonly dbServices _dbServices;
-        private readonly ILogger<delete> _logger;
-
-        public delete(dbServices dbServices, ILogger<delete> logger)
+    
+        dbServices ds = new dbServices();
+        public async Task<responseData> Delete(requestData rData)
         {
-            _dbServices = dbServices;
-            _logger = logger;
-        }
+            responseData resData = new responseData();
 
-        public async Task<string> Delete(requestData rData)
-        {
             try
             {
-                if (!rData.addInfo.ContainsKey("email") || !rData.addInfo.ContainsKey("password"))
-                {
-                    return "Invalid request data";
-                }
+                // Your delete query
+                var query = @"DELETE FROM pc_student.RepaireStore 
+                            WHERE user_id = @Id;";
 
-                var email = rData.addInfo["email"].ToString();
-                var password = rData.addInfo["password"].ToString();
-
-                var query = @"DELETE FROM pc_student.RepaireStore WHERE email = @Email AND password = @Password";
-                MySqlParameter[] parameters = new MySqlParameter[]
+                // Your parameters
+                MySqlParameter[] myParam = new MySqlParameter[]
                 {
-                    new MySqlParameter("@Email", email),
-                    new MySqlParameter("@Password", password)
+                    new MySqlParameter("@Id", rData.addInfo["user_id"])
                 };
 
-                var (affectedRows, _) = await _dbServices.executeSQLForDelete(query, parameters);
-                if (affectedRows > 0)
+                // Condition to execute the delete query
+                bool shouldExecuteDelete = true;
+
+                if (shouldExecuteDelete)
                 {
-                    return "Delete successful";
+                    int rowsAffected = ds.ExecuteUpdateSQL(query, myParam);
+
+                    if (rowsAffected > 0)
+                    {
+                        resData.rData["rMessage"] = "DELETE SUCCESSFULLY.";
+                    }
+                    else
+                    {
+                        resData.rData["rMessage"] = "No rows affected. Delete failed.";
+                    }
                 }
                 else
                 {
-                    return "No record found with the given email and password";
+                    resData.rData["rMessage"] = "Condition not met. Delete query not executed.";
                 }
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Exception during delete operation: {ex.Message}");
-                return $"An error occurred: {ex.Message}";
+                resData.rData["rMessage"] = "Exception occurred: " + ex.Message;
             }
+            return resData;
         }
+
+
+        
+        public async Task<responseData> DeleteUserPhoto(requestData rData)
+        {
+            responseData resData = new responseData();
+
+            try
+            {
+                // Your delete query
+                var query = @"UPDATE pc_student.RepaireStore 
+                            SET profile = NULL 
+                            WHERE user_id = @Id;";
+
+                // Your parameters
+                MySqlParameter[] myParam = new MySqlParameter[]
+                {
+                    new MySqlParameter("@Id", rData.addInfo["user_id"])
+                };
+
+                // Condition to execute the delete query
+                bool shouldExecuteDelete = true;
+
+                if (shouldExecuteDelete)
+                {
+                    int rowsAffected = ds.ExecuteUpdateSQL(query, myParam);
+
+                    if (rowsAffected > 0)
+                    {
+                        resData.rData["rMessage"] = "DELETE SUCCESSFULLY.";
+                    }
+                    else
+                    {
+                        resData.rData["rMessage"] = "No rows affected. Delete failed.";
+                    }
+                }
+                else
+                {
+                    resData.rData["rMessage"] = "Condition not met. Delete query not executed.";
+                }
+            }
+            catch (Exception ex)
+            {
+                resData.rData["rMessage"] = "Exception occurred: " + ex.Message;
+            }
+            return resData;
+        }
+
+
+
+
+
     }
 }

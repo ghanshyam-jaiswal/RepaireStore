@@ -22,6 +22,12 @@ public class dbServices{
     {
         _configuration = configuration;
     }
+    private readonly ILogger<dbServices> _logger;
+    public dbServices(string connectionString, ILogger<dbServices> logger)
+    {
+        _connectionString = connectionString;
+        _logger = logger;
+    }
 
     private void connectDBPrimary()
     {   
@@ -151,6 +157,8 @@ public class dbServices{
             return -1; // Return -1 to indicate error
         }
         finally
+
+        
         {
             connPrimary.Close(); // Close the connection
         }
@@ -176,7 +184,6 @@ public class dbServices{
 
 
 // Delete end
-
 
 // get all user start
 
