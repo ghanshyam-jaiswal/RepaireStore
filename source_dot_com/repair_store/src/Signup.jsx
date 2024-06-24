@@ -22,8 +22,7 @@ const Signup = () => {
     state:'',
     pincode:'',
     country:'',
-    // profile:'C:\\Users\\ghanshyam\\shyam-cloned\\RepaireStore\\source_dot_com\\repair_store\\Assests\\user-profile-logo-img.jpg'
-    profile:'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freepik.com%2Ffree-photos-vectors%2Fuser-profile-pic&psig=AOvVaw2NEnLfSfXTnW2MUyXAzsK_&ust=1718536138379000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCKjxrP293YYDFQAAAAAdAAAAABAE'
+    profile:''
   })
 
   let isValidate=()=>{
@@ -57,33 +56,6 @@ const Signup = () => {
   let navigate=useNavigate()
   
 
-  // let handleSubmit=(e)=>{
-  //   e.preventDefault()
-
-  //   if(isValidate()){
-  //     localStorage.setItem("user",JSON.stringify(userDetails))
-  //     // alert('Successful')
-  //     toast.success('successful')
-  //     navigate('/login');
-  //   }
-    
-  // }
-
-  // let clearData=()=>{
-  //   useState({
-  //     firstName:'',
-  //     lastName:'',
-  //     email:'',
-  //     password:'',
-  //     contact:'',
-  //     streetAddress1:'',
-  //     streetAddress2:'',
-  //     city:'',
-  //     state:'',
-  //     pincode:'',
-  //     country:''
-  //   })
-  // }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
