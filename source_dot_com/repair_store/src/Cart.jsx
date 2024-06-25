@@ -25,23 +25,27 @@ const Cart = ({cart,setCart}) => {
 
   return (
     <>
-      <div className='cart'>
-        {/* <h1>Cart</h1> */}
-        
-        {
-            cart.map((item,index)=>(
-                          <div key={item.id} className='cards' >
-                                    <Link to={`/card/${item.name}`}><img src={item.img} alt="" /></Link> 
-                                    <div className="cards-info">
-                                        <p>{item.name}</p>
-                                        <button onClick={()=>cartDelete(index)}>Delete</button>
-                                    </div> 
-                          </div>
+      {cart.length>0 ?
+
+          <div className='cart'>
+            {/* <h1>Cart</h1> */}
+            
+            {
+                cart.map((item,index)=>(
+                              <div key={item.id} className='cards' >
+                                        <Link to={`/card/${item.name}`}><img src={item.img} alt="" /></Link> 
+                                        <div className="cards-info">
+                                            <p>{item.name}</p>
+                                            <button onClick={()=>cartDelete(index)}>Delete</button>
+                                        </div> 
+                              </div>
+                      )
                   )
-              )
-        }
-        
-      </div>
+            }
+          </div>
+          
+        : <div className='no-data' ><h1 >No Item</h1></div>
+      }
     </>
   )
 }

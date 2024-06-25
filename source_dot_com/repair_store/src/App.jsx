@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Home from "./Home";
 import Category from "./Category";
 import Signup from "./Signup";
@@ -14,6 +14,11 @@ import Payment from "./Payment";
 import ThankYou from "./ThankYou";
 import { ToastContainer, toast } from 'react-toastify';
 import UpdateProfile from "./UpdateProfile";
+import Admin from "./Admin";
+import AdminProduct from "./AdminProduct";
+import AdminUsers from "./AdminUsers";
+import AdminOrders from "./AdminOrders";
+import AdminContact from "./AdminContact";
 
 
 const App = () => {
@@ -49,7 +54,13 @@ const App = () => {
             <Route path="/payment" element={<Payment addToCart={addToCart}/>}></Route>
             <Route path="/thankyou" element={<ThankYou/>}></Route>
             <Route path="/updateprofile" element={<UpdateProfile/>}></Route>
-
+            <Route path="/admin" element={<Admin/>} >
+              <Route index element={<Navigate to="/admin/products" />} />
+              <Route path="/admin/products" element={<AdminProduct/>} ></Route>
+              <Route path="/admin/users" element={<AdminUsers/>} ></Route>
+              <Route path="/admin/orders" element={<AdminOrders/>} ></Route>
+              <Route path="/admin/contact" element={<AdminContact/>} ></Route>
+            </Route>
           </Route>
         </Routes>
       </BrowserRouter>

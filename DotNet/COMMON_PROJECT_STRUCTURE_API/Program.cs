@@ -125,7 +125,7 @@ var builder = WebHost.CreateDefaultBuilder(args)
                     await http.Response.WriteAsJsonAsync(await contact.Contact(rData));
             });
 
-            e.MapPost("getUsers",
+            e.MapPost("getAllUsers",
             [AllowAnonymous] async (HttpContext http) =>
             {
                 var body = await new StreamReader(http.Request.Body).ReadToEndAsync();
@@ -216,3 +216,5 @@ public record responseData
     public IDictionary<string, object> addInfo { get; set; }
     public IDictionary<string, object> rData { get; set; }
 }
+
+

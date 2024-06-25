@@ -1,0 +1,19 @@
+.adminUsers{
+    width: 85%;
+    height: 100%;
+    border: 1px solid brown;
+}
+.adminUsers-heading{
+    width: 85%;
+    height: 10%;
+    border: 1px solid brown;
+    /* border-collapse: collapse; */
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+
+}
+.adminUsers-heading h1{
+    border-right: 1px solid;
+    /* height: 100%; */
+}

@@ -64,6 +64,7 @@ const Nav = ({count}) => {
 
           <NavLink to={"/contact"} className={(e)=>{return e.isActive?"red":" "}} >Contact</NavLink>
           <NavLink to={"/about"} className={(e)=>{return e.isActive?"red":" "}} >About</NavLink>
+          <NavLink to={"/admin"} className={(e)=>{return e.isActive?"red":" "}} >Admin</NavLink>
           <NavLink to={"/cart"}  className="nav-cart"  ><FaShoppingCart />{count}</NavLink>
           <NavLink to={"/profile"}><CgProfile className="nav-profile" /></NavLink>
         </div>
