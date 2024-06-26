@@ -1,4 +1,4 @@
-.adminUsers{
+.adminContact{
     width: 85%;
     height: 100%;
     /* border: 1px solid brown; */
@@ -7,7 +7,7 @@
     justify-content: center;
     align-items: center;
 }
-.tableContainer {
+.adminContactTableContainer {
     width: 85%;
     height: 85%;
     box-shadow: 0px 0px 10px rgb(223, 201, 201);
@@ -15,7 +15,7 @@
     overflow-y: auto;
   }
   
-  .adminUsers table {
+  .adminContact table {
     width: 100%;
     /* height: 100%; */
     /* border: 1px solid; */
@@ -25,7 +25,7 @@
      /* overflow-y: auto; */
   }
   
-  .adminUsers th, .adminUsers td {
+  .adminContact th, .adminContact td {
     text-align: center;
     /* padding: 0.5rem; */
     /* padding: 1%; */
@@ -33,7 +33,7 @@
     /* padding: 0 1em; */
   }
   
-  .adminUsers th {
+  .adminContact th {
     background-color: #04AA6D;
     color: rgb(0, 0, 0);
     height: 4em;
@@ -42,14 +42,16 @@
     top: 0;
     
   }
-  .adminUsers tbody tr{
+  .adminContact tbody tr{
     height: 4em;
+    
   }
-  .adminUsers tr:nth-child(even) {
+
+  .adminContact tr:nth-child(even) {
     background-color: #f2f2f2;
   }
   
-  .adminUsers .profile{
+  .adminContact .profile{
     width: 4em;
     height: 3.5em;
     border: 1px solid;
@@ -60,17 +62,19 @@
     background-position: center;
     background-repeat: no-repeat;
   }
-  .adminUsers .delete-btn{
+  .adminContact .delete-btn{
     border: none;
-    width: 70%;
+    width: 6em;
     height: 2.7em;
-    font-size: 0.65vw;
+    font-size: 0.7vw;
     border-radius: 10px;
     background-color: rgb(247, 90, 90);
     color: rgb(0, 0, 0);
     font-weight: bold;
+    margin-right: 0.5em;
+    margin-left: 0.5em;
   }
-  .adminUsers .delete-btn:hover{
+  .adminContact .delete-btn:hover{
     background-color: rgb(247, 0, 0);
     color: rgb(223, 216, 216);
   }

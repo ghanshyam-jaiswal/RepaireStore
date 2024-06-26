@@ -115,6 +115,7 @@ var builder = WebHost.CreateDefaultBuilder(args)
                 if (rData.eventID == "1001") // signup
                     await http.Response.WriteAsJsonAsync(await signup.Signup(rData));
             });
+
             e.MapPost("contact",
             [AllowAnonymous] async (HttpContext http) =>
             {
@@ -123,6 +124,26 @@ var builder = WebHost.CreateDefaultBuilder(args)
                 Console.WriteLine($"Received contact request: {JsonSerializer.Serialize(rData)}");
                 if (rData.eventID == "1001") // contact
                     await http.Response.WriteAsJsonAsync(await contact.Contact(rData));
+            });
+
+            e.MapPost("getAllContact",
+            [AllowAnonymous] async (HttpContext http) =>
+            {
+                var body = await new StreamReader(http.Request.Body).ReadToEndAsync();
+                requestData rData = JsonSerializer.Deserialize<requestData>(body);
+                Console.WriteLine($"Received contact request: {JsonSerializer.Serialize(rData)}");
+                if (rData.eventID == "1001") // contact
+                    await http.Response.WriteAsJsonAsync(await contact.GetAllContact(rData));
+            });
+
+            e.MapPost("deleteContact",
+            [AllowAnonymous] async (HttpContext http) =>
+            {
+                var body = await new StreamReader(http.Request.Body).ReadToEndAsync();
+                requestData rData = JsonSerializer.Deserialize<requestData>(body);
+                Console.WriteLine($"Received contact request: {JsonSerializer.Serialize(rData)}");
+                if (rData.eventID == "1001") // contact
+                    await http.Response.WriteAsJsonAsync(await contact.DeleteContact(rData));
             });
 
             e.MapPost("getAllUsers",

@@ -31,7 +31,7 @@ const Nav = ({count}) => {
     navigate("/")
   }
 
-
+  
 
   return (
     <>
@@ -66,7 +66,9 @@ const Nav = ({count}) => {
           <NavLink to={"/about"} className={(e)=>{return e.isActive?"red":" "}} >About</NavLink>
           <NavLink to={"/admin"} className={(e)=>{return e.isActive?"red":" "}} >Admin</NavLink>
           <NavLink to={"/cart"}  className="nav-cart"  ><FaShoppingCart />{count}</NavLink>
-          <NavLink to={"/profile"}><CgProfile className="nav-profile" /></NavLink>
+          <NavLink to={"/profile"}> <CgProfile className="nav-profile" /> </NavLink>
+          {/* <NavLink to={"/profile"}>{userImage.profile ? userImage.profile : <CgProfile className="nav-profile" /> }</NavLink> */}
+          {/* {user.profile} */}
         </div>
       </div>
     </>
