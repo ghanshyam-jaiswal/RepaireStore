@@ -19,6 +19,8 @@ import AdminProduct from "./AdminProduct";
 import AdminUsers from "./AdminUsers";
 import AdminOrders from "./AdminOrders";
 import AdminContact from "./AdminContact";
+import AdminAllProducts from "./AdminAllProducts";
+import AdminAddProduct from "./AdminAddProduct";
 
 
 const App = () => {
@@ -55,8 +57,10 @@ const App = () => {
             <Route path="/thankyou" element={<ThankYou/>}></Route>
             <Route path="/updateprofile" element={<UpdateProfile/>}></Route>
             <Route path="/admin" element={<Admin/>} >
-              <Route index element={<Navigate to="/admin/products" />} />
+              <Route index element={<Navigate to="/admin/users" />} />
               <Route path="/admin/products" element={<AdminProduct/>} ></Route>
+              <Route path="/admin/allproducts" element={<AdminAllProducts/>} ></Route>
+              <Route path="/admin/addproduct" element={<AdminAddProduct/>} ></Route>
               <Route path="/admin/users" element={<AdminUsers/>} ></Route>
               <Route path="/admin/orders" element={<AdminOrders/>} ></Route>
               <Route path="/admin/contact" element={<AdminContact/>} ></Route>
