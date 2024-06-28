@@ -1,6 +1,10 @@
 import React from 'react'
 import "../css/adminAllProducts.css"
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 const AdminAllProducts = () => {
+
+  let navigate=useNavigate()
+
   return (
     <div className='adminAllProducts'>
        <div className='tableContainer'>
@@ -38,6 +42,10 @@ const AdminAllProducts = () => {
              </tbody>
           
           </table>
+        </div>
+        <div className='addProduct' >
+          <button onClick={()=>navigate('/admin/addproduct')}>Add New Product</button>
+          {/* <Link to={'/admin/addproduct'}>Add New Product</Link> */}
         </div>
 
     </div>

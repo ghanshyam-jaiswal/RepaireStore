@@ -6,6 +6,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
 }
 .adminAllProducts .tableContainer {
     width: 85%;
@@ -75,4 +76,22 @@
     color: rgb(223, 216, 216);
   }
 
-  
+  .adminAllProducts .addProduct{
+    width: 85%;
+    height: 5%;
+    /* border: 1px solid; */
+    text-align: right;
+  }
+  .adminAllProducts .addProduct button{
+    width: 10%;
+    height: 100%;
+    border-radius: 7px;
+    border: none;
+    background-color: rgb(130, 141, 243);
+    font-weight: bold;
+    font-size: 0.7vw;
+  }
+  .adminAllProducts .addProduct button:hover{
+    background-color: rgb(113, 126, 243);
+
+  }
