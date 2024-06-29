@@ -1,7 +1,45 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import "../css/adminAllProducts.css"
 import { Link, NavLink, useNavigate } from 'react-router-dom'
+import axios from 'axios';
+
+
 const AdminAllProducts = () => {
+
+  let [productDetails,setProductDetails]=useState([])
+
+  useEffect(() => {
+    // fetchProducts(); // Fetch data immediately when component mounts
+  }, []); // Empty dependency array means run once on mount
+
+  // useEffect(()=>{
+  //   // console.log("userDetails updated",userDetails)
+  // },[productDetails])
+
+
+  let fetchProducts = async () => {
+    try {
+      const response = await axios.post('http://localhost:5164/getAllProduct', {
+        eventID: "1001",
+        addInfo: {}
+      });
+
+      if (response.data.rData.rMessage === 'Successful') {
+        setProductDetails(response.data.rData.users);
+        console.log("Fetched productDetails successfully");
+        console.log("productDetails ",productDetails);
+
+      } else {
+        console.log("Failed to fetch users");
+      }
+    } catch (error) {
+      console.error("Error fetching users:", error);
+    }
+
+    // fetchProducts()
+  };
+
+ 
 
   let navigate=useNavigate()
 
@@ -11,8 +49,8 @@ const AdminAllProducts = () => {
           <table>
             <thead>
               <tr>
-                <th>Image</th>
                 <th>Id</th>
+                <th>Product Image</th>
                 <th>Name</th>
                 <th>Price</th>
                 <th>Demo Images</th>
@@ -21,24 +59,28 @@ const AdminAllProducts = () => {
               </tr>
             </thead>
             <tbody>
-                {/* {userDetails.map((user,index) => (
+                {productDetails.map((product,index) => (
                   <tr key={index}>
-                      <td>{user.user_id}</td>
-                      <td>{user.first_name} {user.last_name}</td>
-                      <td>{user.email}</td>
-                      <td>{user.password}</td>
-                      <td>{user.contact || '--'}</td>
-                      <td>{user.street_address1} {user.street_address2} </td>
-                      <td>{user.city || '--' }</td>
-                      <td>{user.state || '--' }</td>
-                      <td>{user.pincode || '--' }</td>
-                      <td>{user.country || '--' }</td> 
-                      //<td><img src={user.profile} alt="image" style={{width:'0%',height:'4%',border:'1px solid'}}/></td>
-                      <td>{user.profile ? <div className='profile' style={{backgroundImage:`url('${user.profile}')`,alt:'image'}}></div> : '--'}</td>
-                      <td><button onClick={()=>handleDeleteUser(user.user_id)} className='delete-btn'>Delete</button></td>
+                      <td>{product.id}</td>
+                      <td><img src={product.productImage} alt="image" style={{width:'0%',height:'4%',border:'1px solid'}}/></td>
+                      <td>{product.productName}</td>
+                      <td>{product.productPrice}</td>
+                      {/* <td>{product.product || '--'}</td> */}
+                      {/* <td>{user.productDemoImages || '--'}</td> */}
+                      {/* <td>{user.productDemoText }</td> */}
+                      <td> 
+                        {/* <ul>
+                          {product.productDemoText.map((item, idx) => (
+                            <li key={idx}>{item}</li>
+                          ))}
+                        </ul> */}
+                      </td>
+                      {/* <td><img src={user.profile} alt="image" style={{width:'0%',height:'4%',border:'1px solid'}}/></td> */}
+                      <td><button  className='delete-btn'>Update</button></td>
+                      {/* <td><button onClick={()=>handleDeleteUser(user.user_id)} className='delete-btn'>Delete</button></td> */}
                     </tr>
                 ))
-                } */}
+                }
              </tbody>
           
           </table>

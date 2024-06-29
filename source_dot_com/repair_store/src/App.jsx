@@ -54,7 +54,7 @@ const App = () => {
             <Route path="/profile" element={<UserProfile/>}></Route>
             <Route path="/card/:name" element={<Card/>}></Route>
             <Route path="/payment" element={<Payment addToCart={addToCart}/>}></Route>
-            <Route path="/thankyou" element={<ThankYou/>}></Route>
+            <Route path="/thankyou" element={<ThankYou/>}></Route>x``
             <Route path="/updateprofile" element={<UpdateProfile/>}></Route>
             <Route path="/admin" element={<Admin/>} >
               <Route index element={<Navigate to="/admin/users" />} />

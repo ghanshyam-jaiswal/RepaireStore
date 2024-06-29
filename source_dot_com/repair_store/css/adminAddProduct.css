@@ -15,10 +15,12 @@
     font-size: 1.2vw;
 }
 .adminAddProduct form{
-    width: 85%;
+    width: 90%;
     height: 80%;
-    border: 1px solid ;
-    /* padding: 5%; */
+    /* border: 1px solid ; */
+    padding: 2%;
+    box-shadow: 0px 0px 5px;
+    border-radius: 10px;
 }
 .adminAddProduct form div{
     width: 100%;
@@ -43,7 +45,7 @@
     /* align-items: center; */
     /* flex-wrap: wrap; */
     /* margin-left: 5%; */
-    padding-left: 1%;
+    /* padding-left: 1%; */
 }
 .adminAddProduct form .productImage .labelImage input{
     font-size: 1vw;
@@ -51,6 +53,8 @@
     /* height: 50%; */
     border: 1px solid ;
     border-radius: 5px;
+    /* color: black; */
+    /* background-color: black; */
 }
 .adminAddProduct form .productImage .labelImage label{
     font-size: 0.9vw;
@@ -59,12 +63,17 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    /* border: 1px solid; */
 }
 .adminAddProduct form .productName input{
     width: 100%;
     height: 50%;
     padding-left: 2%;
     border-radius: 10px;
+    border: none;
+    outline: none;
+    background-color: rgb(213, 233, 250);
+    /* color: bl; */
 }
 
 .adminAddProduct .items{
@@ -82,7 +91,7 @@
     height: 100%;
     /* border: 1px solid ; */
     margin: 0 2.5%;
-    box-shadow: 0px 0px 7px rgb(151, 93, 93);
+    /* box-shadow: 0px 0px 1px rgb(151, 93, 93); */
    
 }
 .adminAddProduct form .demoText{
@@ -91,7 +100,7 @@
     /* border: 1px solid ; */
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    justify-content: space-between;
 }
 .adminAddProduct form .demoText .left{
     width: 50%;
@@ -114,21 +123,38 @@
     height: 50%;
     padding-left: 4%;
     border-radius: 10px;
+    border: none;
+    outline: none;
+    background-color: rgb(213, 233, 250);
+
 }
 .adminAddProduct form .demoText .left .demoText-btns{
     width: 100%;
-    height: 22%;
+    height: 24%;
     display: flex;
     justify-content: center;
     /* align-items: center; */
     gap: 2%;
+    /* border: 1px solid; */
 }
 .adminAddProduct form .demoText .left .demoText-btns button{
-    width: 12%;
+    width: 11%;
     height: 100%;
-    font-size: 0.8vw;
+    font-size: 0.6vw;
     border-radius: 5px;
-
+    border: none;
+}
+.adminAddProduct form .demoText .left .demoText-btns .add{
+    background-color: rgb(17, 190, 17);
+}
+.adminAddProduct form .demoText .left .demoText-btns .add:hover{
+    background-color: rgb(16, 177, 16);
+}
+.adminAddProduct form .demoText .left .demoText-btns .cancel{
+    background-color: rgb(206, 155, 14);
+}
+.adminAddProduct form .demoText .left .demoText-btns .cancel:hover{
+    background-color: rgb(187, 141, 14);
 }
 .adminAddProduct form .demoText .right{
     width: 45%;

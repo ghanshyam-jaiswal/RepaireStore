@@ -21,6 +21,7 @@ var builder = WebHost.CreateDefaultBuilder(args)
         s.AddSingleton<contact>();
         s.AddSingleton<users>();
         s.AddSingleton<getUserByEmail>();
+        s.AddSingleton<product>();
         s.AddSingleton<dbServices>();
 
 
@@ -65,6 +66,7 @@ var builder = WebHost.CreateDefaultBuilder(args)
             var contact = e.ServiceProvider.GetRequiredService<contact>();
             var users = e.ServiceProvider.GetRequiredService<users>();
             var deleteService = e.ServiceProvider.GetRequiredService<delete>();
+            var productService = e.ServiceProvider.GetRequiredService<product>();
             var getUserByEmail = e.ServiceProvider.GetRequiredService<getUserByEmail>();
 
             e.MapPost("login",
@@ -136,6 +138,8 @@ var builder = WebHost.CreateDefaultBuilder(args)
                     await http.Response.WriteAsJsonAsync(await contact.GetAllContact(rData));
             });
 
+           
+
             e.MapPost("deleteContact",
             [AllowAnonymous] async (HttpContext http) =>
             {
@@ -159,6 +163,28 @@ var builder = WebHost.CreateDefaultBuilder(args)
                 }
             });
 
+            e.MapPost("addProduct",
+            [AllowAnonymous] async (HttpContext http) =>
+            {
+                var body = await new StreamReader(http.Request.Body).ReadToEndAsync();
+                requestData rData = JsonSerializer.Deserialize<requestData>(body);
+                Console.WriteLine($"Received get users request: {JsonSerializer.Serialize(rData)}");
+                if (rData.eventID == "1001") // addProduct
+                {
+                    // Call the GetAllUsers method directly and return its result as JSON response
+                    await http.Response.WriteAsJsonAsync(await productService.AddProduct(rData));
+                }
+            });
+            
+             e.MapPost("getAllProduct",
+            [AllowAnonymous] async (HttpContext http) =>
+            {
+                var body = await new StreamReader(http.Request.Body).ReadToEndAsync();
+                requestData rData = JsonSerializer.Deserialize<requestData>(body);
+                Console.WriteLine($"Received contact request: {JsonSerializer.Serialize(rData)}");
+                if (rData.eventID == "1001") // contact
+                    await http.Response.WriteAsJsonAsync(await productService.GetAllProduct(rData));
+            });
 
             e.MapPost("updateById",
             [AllowAnonymous] async (HttpContext http) =>
