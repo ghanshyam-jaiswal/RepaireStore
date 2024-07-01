@@ -165,7 +165,7 @@ const AdminAddProduct = () => {
       else if(response.data.rData.rMessage==='Added Successful'){
       // localStorage.removeItem('user')
       toast.success("Product Added Successful")
-      // navigate("/")
+      navigate("/admin/allproducts")
     }
 
 

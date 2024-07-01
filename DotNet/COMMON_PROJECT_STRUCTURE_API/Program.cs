@@ -186,6 +186,36 @@ var builder = WebHost.CreateDefaultBuilder(args)
                     await http.Response.WriteAsJsonAsync(await productService.GetAllProduct(rData));
             });
 
+             e.MapPost("getProductById",
+            [AllowAnonymous] async (HttpContext http) =>
+            {
+                var body = await new StreamReader(http.Request.Body).ReadToEndAsync();
+                requestData rData = JsonSerializer.Deserialize<requestData>(body);
+                Console.WriteLine($"Received contact request: {JsonSerializer.Serialize(rData)}");
+                if (rData.eventID == "1001") // contact
+                    await http.Response.WriteAsJsonAsync(await productService.GetProductById(rData));
+            });
+
+             e.MapPost("updateProductById",
+            [AllowAnonymous] async (HttpContext http) =>
+            {
+                var body = await new StreamReader(http.Request.Body).ReadToEndAsync();
+                requestData rData = JsonSerializer.Deserialize<requestData>(body);
+                Console.WriteLine($"Received contact request: {JsonSerializer.Serialize(rData)}");
+                if (rData.eventID == "1001") // contact
+                    await http.Response.WriteAsJsonAsync(await productService.UpdateProductById(rData));
+            });
+
+             e.MapPost("deleteProduct",
+            [AllowAnonymous] async (HttpContext http) =>
+            {
+                var body = await new StreamReader(http.Request.Body).ReadToEndAsync();
+                requestData rData = JsonSerializer.Deserialize<requestData>(body);
+                Console.WriteLine($"Received contact request: {JsonSerializer.Serialize(rData)}");
+                if (rData.eventID == "1001") // contact
+                    await http.Response.WriteAsJsonAsync(await productService.DeleteProduct(rData));
+            });
+
             e.MapPost("updateById",
             [AllowAnonymous] async (HttpContext http) =>
             {

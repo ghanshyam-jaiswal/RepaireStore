@@ -123,6 +123,177 @@ namespace COMMON_PROJECT_STRUCTURE_API.services
 
             return resData;
         }
+        public async Task<responseData> GetProductById(requestData rData)
+        {
+            responseData resData = new responseData();
+            try
+            {
+                var query = @"SELECT * FROM pc_student.RepairStoreProduct WHERE id=@ID";
+
+                MySqlParameter[] myParam = new MySqlParameter[]
+                {
+                    new MySqlParameter("@ID", rData.addInfo["id"]) // Ensure rData contains the id field
+                };
+
+                var dbData = ds.executeSQL(query, myParam);
+
+                if (dbData == null)
+                {
+                    resData.rData["rMessage"] = "Database query returned null";
+                    resData.rStatus = 1; // Indicate error
+                    return resData;
+                }
+
+                List<object> usersList = new List<object>();
+
+                foreach (var rowSet in dbData)
+                {
+                    if (rowSet != null)
+                    {
+                        foreach (var row in rowSet)
+                        {
+                            if (row != null)
+                            {
+                                List<string> rowData = new List<string>();
+
+                                foreach (var column in row)
+                                {
+                                    if (column != null)
+                                    {
+                                        rowData.Add(column.ToString());
+                                    }
+                                }
+
+                                var user = new
+                                {
+                                    id = rowData.ElementAtOrDefault(0),
+                                    productImage = rowData.ElementAtOrDefault(1),
+                                    productName = rowData.ElementAtOrDefault(2),
+                                    productPrice = rowData.ElementAtOrDefault(3),
+                                    productDemoImages = rowData.ElementAtOrDefault(4),
+                                    productDemoText = rowData.ElementAtOrDefault(5),
+                                };
+
+                                usersList.Add(user);
+                            }
+                        }
+                    }
+                }
+
+                resData.rData["users"] = usersList;
+                resData.rData["rMessage"] = "Successful";
+                resData.rStatus = 0; // Indicate success
+            }
+            catch (Exception ex)
+            {
+                resData.rData["rMessage"] = "Exception occurred: " + ex.Message;
+                resData.rStatus = 1; // Indicate error
+            }
+
+            return resData;
+        }
+
+
+        public async Task<responseData> UpdateProductById(requestData rData)
+        {
+            responseData resData = new responseData();
+
+            try
+            {
+                // Your update query
+                var query = @"UPDATE pc_student.RepairStoreProduct
+                            SET   productImage = @productImage, 
+                                  productName = @productName,
+                                  productPrice = @productPrice,
+                                  productDemoImages = @productDemoImages, 
+                                  productDemoText = @productDemoText
+                           WHERE id = @id";
+
+                // Your parameters
+                MySqlParameter[] myParam = new MySqlParameter[]
+                {
+
+                    new MySqlParameter("@id", rData.addInfo["id"]),
+                    new MySqlParameter("@productImage", rData.addInfo["productImage"]),
+                    new MySqlParameter("@productName", rData.addInfo["productName"]),
+                    new MySqlParameter("@productPrice", rData.addInfo["productPrice"]),
+                    new MySqlParameter("@productDemoImages", rData.addInfo["productDemoImages"]),
+                    new MySqlParameter("@productDemoText", rData.addInfo["productDemoText"]),
+                };
+
+                // Condition to execute the update query
+                bool shouldExecuteUpdate = true;
+
+                if (shouldExecuteUpdate)
+                {
+                    // int rowsAffected = ds.ExecuteUpdateSQL(query, myParam);
+                    int rowsAffected = ds.ExecuteUpdateSQL(query, myParam);
+
+                    if (rowsAffected > 0)
+                    {
+                        resData.rData["rMessage"] = "UPDATE SUCCESSFULLY";
+                    }
+                    else
+                    {
+                        resData.rData["rMessage"] = "No rows affected. Update failed.";
+                    }
+                }
+                else
+                {
+                    resData.rData["rMessage"] = "Condition not met. Update query not executed.";
+                }
+            }
+            catch (Exception ex)
+            {
+                resData.rData["rMessage"] = "Exception occurred: " + ex.Message;
+            }
+            return resData;
+        }
+
+
+        public async Task<responseData> DeleteProduct(requestData rData)
+        {
+            responseData resData = new responseData();
+
+            try
+            {
+                // Your delete query
+                var query = @"DELETE FROM pc_student.RepairStoreProduct
+                            WHERE id = @Id;";
+
+                // Your parameters
+                MySqlParameter[] myParam = new MySqlParameter[]
+                {
+                    new MySqlParameter("@Id", rData.addInfo["id"])
+                };
+
+                // Condition to execute the delete query
+                bool shouldExecuteDelete = true;
+
+                if (shouldExecuteDelete)
+                {
+                    int rowsAffected = ds.ExecuteUpdateSQL(query, myParam);
+
+                    if (rowsAffected > 0)
+                    {
+                        resData.rData["rMessage"] = "DELETE SUCCESSFULLY.";
+                    }
+                    else
+                    {
+                        resData.rData["rMessage"] = "No rows affected. Delete failed.";
+                    }
+                }
+                else
+                {
+                    resData.rData["rMessage"] = "Condition not met. Delete query not executed.";
+                }
+            }
+            catch (Exception ex)
+            {
+                resData.rData["rMessage"] = "Exception occurred: " + ex.Message;
+            }
+            return resData;
+        }
 
     }
 }
