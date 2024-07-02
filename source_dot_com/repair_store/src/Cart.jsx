@@ -15,10 +15,9 @@ const Cart = ({cart,setCart}) => {
   let navigate=useNavigate()
   
   useEffect(()=>{
-    let check=localStorage.getItem("user")
+    let check=localStorage.getItem("user") 
     if(check==='' || check===null){
       navigate('/login')
-      console.log("cart",cart)
     }
   },[])
 

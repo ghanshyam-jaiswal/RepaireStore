@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import "../css/adminUpdateProduct.css";
 import { toast } from 'react-toastify';
+import { FiDelete } from "react-icons/fi";
 
 const AdminUpdateProduct = () => {
     let { id } = useParams();
@@ -221,7 +222,8 @@ const AdminUpdateProduct = () => {
                         {productDetails.productDemoImages && productDetails.productDemoImages.map((image, index) => (
                             <div key={index} className='item'>
                                 <img src={image} alt='img' style={{height: '80%', width: '100%'}} />
-                                <p style={{height: '20%', width: '100%', textAlign:'center', fontSize:'1vw'}}>{index+1} <button onClick={handleDemoImageRemove}>-</button></p>
+                                {/* <p style={{height: '20%', width: '100%', textAlign:'center', fontSize:'1vw'}}>{index+1} <button onClick={handleDemoImageRemove}>-</button></p> */}
+                                <p style={{height: '20%', width: '100%', textAlign:'center', fontSize:'1vw'}}>{index+1} <FiDelete onClick={handleDemoImageRemove} /></p>
                             </div>
                         ))}
                     </div>
@@ -243,7 +245,8 @@ const AdminUpdateProduct = () => {
 
                     <div className="right">
                         {productDetails.productDemoText && productDetails.productDemoText.map((text, index) => (
-                            <p key={index}> {text} <button onClick={handleDemoTextRemove}>-</button></p>
+                            // <p key={index}> {text} <button onClick={handleDemoTextRemove}>-</button></p>
+                            <p key={index}> {text} <FiDelete onClick={handleDemoTextRemove}/></p>
                         ))}
                     </div>
                 </div>

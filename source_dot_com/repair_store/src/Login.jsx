@@ -45,14 +45,39 @@ const Login = () => {
     };
 
     try {
-      const response = await axios.post('http://localhost:5164/loginservice', payload);
-      
-      if (response.data==='Login successful') {
-        console.log('response',response)
-        // console.log(response)
-        toast.success('Login Successful');
-        // addToProfile(userDetails.email)
 
+      const adminResponse = await axios.post('http://localhost:5164/adminLogin', payload);
+      const response = await axios.post('http://localhost:5164/loginservice', payload);
+
+      if(adminResponse.data==='Login successful'){
+        toast.success('Login Successful');
+        console.log("adminResponse",adminResponse)
+        // navigate('/admin');
+        let id;
+        try{
+          const adminResponse2 = await axios.post('http://localhost:5164/getAdminByEmail', {
+                  eventID: "1001",
+                  addInfo: {
+                    email: userDetails.email  // Assuming userId is passed as prop to UserProfile
+                  }
+                });
+          // console.log("adminResponse2",adminResponse2)
+          // console.log("adminResponse2 id",adminResponse2.data.rData.users[0].id)
+          // id=adminResponse2.data.rData.users[0].id
+          localStorage.setItem('admin',adminResponse2.data.rData.users[0].email);
+          // localStorage.setItem("token","RepairStore")
+          // console.log("user",response2.data.rData.rMessage)
+        } 
+        catch (error)
+        {
+          toast.error(error.message);
+        }
+        // navigate(`/admin/${id}`);
+        navigate(`/admin`);
+
+      }
+      else if (response.data==='Login successful') {
+        toast.success('Login Successful');
         try{
             const response2 = await axios.post('http://localhost:5164/getUserByEmail', {
                     eventID: "1001",
@@ -70,15 +95,15 @@ const Login = () => {
           toast.error(error.message);
         }
         navigate('/');
-      } else {
-        // console.log(response.data)
-        // console.log(response)
+      } 
+      else
+      {
         toast.error('Invalid');
       }
-    } catch (error) {
-      console.error('Error logging in:', error);
-      toast.error('An error occurred during login');
-      // toast.error('Invalid Credentials');
+    }
+    catch (error)
+    {
+      toast.error('An error occurred during login',error);
     }
   };
 

@@ -56,5 +56,50 @@ namespace COMMON_PROJECT_STRUCTURE_API.services
             }
             return resData;
         }
+
+
+        public async Task<responseData> AdminSignup(requestData rData)
+        {
+            responseData resData = new responseData();
+            try
+            {
+                var query = @"SELECT * FROM pc_student.RepairStoreAdmin WHERE email=@email";
+                MySqlParameter[] myParam = new MySqlParameter[]
+                {
+                    new MySqlParameter("@email", rData.addInfo["email"])
+                };
+                var dbData = ds.executeSQL(query, myParam);
+                
+                if (dbData[0].Count() > 0)
+                {
+                    resData.rData["rMessage"] = "Duplicate Credentials";
+                }
+                else
+                {
+                   var sq = @"INSERT INTO pc_student.RepairStoreAdmin (firstName, lastName, email, password) 
+                               VALUES (@firstName, @lastName, @email, @password)";
+                    MySqlParameter[] insertParams = new MySqlParameter[]
+                    {
+                        new MySqlParameter("@firstName", rData.addInfo["firstName"]),
+                        new MySqlParameter("@lastName", rData.addInfo["lastName"]),
+                        new MySqlParameter("@email", rData.addInfo["email"]),
+                        new MySqlParameter("@password", rData.addInfo["password"]),
+                    };
+                    var insertResult = ds.executeSQL(sq, insertParams);
+
+                    resData.rData["rMessage"] = "Signup Successful";
+                }
+            }
+            catch (Exception ex)
+            {
+                resData.rData["rMessage"] = "An error occurred: " + ex.Message;
+            }
+            return resData;
+        }
+
+
+
+
+
     }
 }

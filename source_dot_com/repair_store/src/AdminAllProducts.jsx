@@ -4,6 +4,7 @@ import { Link, NavLink, useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { MdDeleteForever } from "react-icons/md";
+import { BiEdit } from "react-icons/bi";
 
 
 const AdminAllProducts = () => {
@@ -123,8 +124,8 @@ const AdminAllProducts = () => {
                       </td>
                       <td>
                         <div className='action'>
-                          <button onClick={()=>navigate(`/admin/updateproduct/${product.id}`)} className='delete-btn update'>Update</button>
-                          <button className='delete-btn' onClick={()=>handleDeleteProduct(product.id)}>Delete <MdDeleteForever style={{fontSize:'1.4vw'}}/></button>
+                          <button onClick={()=>navigate(`/admin/updateproduct/${product.id}`)} className='delete-btn update'>Update <BiEdit style={{fontSize:'1vw'}} /></button>
+                          <button className='delete-btn' onClick={()=>handleDeleteProduct(product.id)}>Delete <MdDeleteForever style={{fontSize:'1.1vw'}}/></button>
                         </div>
                       </td>
                       {/* <td><button onClick={()=>handleDeleteUser(user.user_id)} className='delete-btn'>Delete</button></td> */}

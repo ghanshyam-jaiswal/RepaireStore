@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import { toast } from 'react-toastify'
 import "../css/adminContact.css"
+import { MdDeleteForever } from "react-icons/md";
+
 
 const AdminContact = () => {
 
@@ -92,7 +94,7 @@ let handleDeleteContact = async (dataToBeDelete)=> {
                         <td>{user.name}</td>
                         <td>{user.email}</td>
                         <td>{user.message || '--'}</td>
-                        <td><button onClick={()=>handleDeleteContact(user.id)} className='delete-btn'>Delete</button></td>
+                        <td><button onClick={()=>handleDeleteContact(user.id)} className='delete-btn'>Delete <MdDeleteForever style={{fontSize:'1.2vw',}} /></button></td>
                     </tr>
                   ))
                 }

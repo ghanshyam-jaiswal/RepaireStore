@@ -26,7 +26,7 @@ const Nav = ({count}) => {
   // },[navigate])
 
   let handleLogout=()=>{
-    localStorage.removeItem('user')
+    localStorage.removeItem('user') || localStorage.removeItem("admin")
     toast.success("Logout Successful")
     navigate("/")
   }
@@ -58,17 +58,25 @@ const Nav = ({count}) => {
 
           {/* <NavLink to={"/signup"} className={(e)=>{return e.isActive?"red":" "}}>Sign Up</NavLink> */}
 
-          {localStorage.getItem("user")?
+          {localStorage.getItem("user") || localStorage.getItem("admin") ?
                                   <NavLink to={"/login"} className={(e)=>{return e.isActive?"red":" "}} onClick={()=>handleLogout()}>Logout</NavLink>
                                   :<NavLink to={"/login"} className={(e)=>{return e.isActive?"red":" "}} >Login</NavLink>}
+          {
+            localStorage.getItem("admin") 
+            ? 
+            <NavLink to={"/admin"} className={(e)=>{return e.isActive?"red":" "}} >Admin</NavLink> 
+            :
+            <>
+              <NavLink to={"/contact"} className={(e)=>{return e.isActive?"red":" "}} >Contact</NavLink>
+              <NavLink to={"/about"} className={(e)=>{return e.isActive?"red":" "}} >About</NavLink>
+              {/* <NavLink to={"/admin"} className={(e)=>{return e.isActive?"red":" "}} >Admin</NavLink> */}
+              <NavLink to={"/cart"}  className="nav-cart"  ><FaShoppingCart />{count}</NavLink>
+              <NavLink to={"/profile"}> <CgProfile className="nav-profile" /> </NavLink>
+              {/* <NavLink to={"/profile"}>{userImage.profile ? userImage.profile : <CgProfile className="nav-profile" /> }</NavLink> */}
+              {/* {user.profile} */}
+            </>
+          }
 
-          <NavLink to={"/contact"} className={(e)=>{return e.isActive?"red":" "}} >Contact</NavLink>
-          <NavLink to={"/about"} className={(e)=>{return e.isActive?"red":" "}} >About</NavLink>
-          <NavLink to={"/admin"} className={(e)=>{return e.isActive?"red":" "}} >Admin</NavLink>
-          <NavLink to={"/cart"}  className="nav-cart"  ><FaShoppingCart />{count}</NavLink>
-          <NavLink to={"/profile"}> <CgProfile className="nav-profile" /> </NavLink>
-          {/* <NavLink to={"/profile"}>{userImage.profile ? userImage.profile : <CgProfile className="nav-profile" /> }</NavLink> */}
-          {/* {user.profile} */}
         </div>
       </div>
     </>

@@ -1,13 +1,24 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import "../css/adminUsers.css"
+import { useNavigate } from 'react-router-dom';
+import { MdDeleteForever } from "react-icons/md";
 
 const AdminUsers = () => {
 
   let [userDetails,setUserDetails]=useState([])
 
-  
- 
+  // let [adminDetails,setAdminDetails]=useState('')
+
+  let navigate=useNavigate()
+
+  useEffect(()=>{
+    let check=localStorage.getItem("user") || localStorage.getItem("admin")
+    if(check==='' || check===null){
+      navigate('/login')
+    }
+  },[])
+
     let fetchUsers = async () => {
       try {
         const response = await axios.post('http://localhost:5164/getAllUsers', {
@@ -31,7 +42,6 @@ const AdminUsers = () => {
   useEffect(() => {
       fetchUsers(); // Fetch data immediately when component mounts
   }, []); // Empty dependency array means run once on mount
-  
   
   useEffect(()=>{
     console.log("userDetails updated",userDetails)
@@ -108,7 +118,7 @@ const AdminUsers = () => {
                       <td>{user.country || '--' }</td> 
                       {/* <td><img src={user.profile} alt="image" style={{width:'0%',height:'4%',border:'1px solid'}}/></td> */}
                       <td>{user.profile ? <div className='profile' style={{backgroundImage:`url('${user.profile}')`,alt:'image'}}></div> : '--'}</td>
-                      <td><button onClick={()=>handleDeleteUser(user.user_id)} className='delete-btn'>Delete</button></td>
+                      <td><button onClick={()=>handleDeleteUser(user.user_id)} className='delete-btn'>Delete <MdDeleteForever style={{fontSize:'1vw'}} /></button></td>
                     </tr>
                 ))
                 }

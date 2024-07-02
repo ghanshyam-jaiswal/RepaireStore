@@ -123,8 +123,9 @@
     justify-content: center;
     align-items: center;
     color: white;
-    border: 1px solid;
+    /* border: 1px solid; */
    /* border: 2px solid yellow; */
+   font-size: 1vw;
 
 }
 .landing-footer{
@@ -137,7 +138,8 @@
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-       /* border: 2px solid yellow; */
+    /* border: 2px solid yellow; */
+    font-size: 0.9vw;
 
     
 }
@@ -156,6 +158,8 @@
     /* background-image: url(../Assests/8303673-removebg-preview.png); */
     background-size: cover;
     background-position: center;
+    font-size: 1vw;
+
 }
 .landing-footer-info{
     width: 10%;

@@ -20,7 +20,7 @@ const Card = () => {
     }
 
     useEffect(()=>{
-      let check=localStorage.getItem("user")
+      let check=localStorage.getItem("user")|| localStorage.getItem("admin")
       if(check==='' || check===null){
         navigate('/login')
       }

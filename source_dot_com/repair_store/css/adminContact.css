@@ -73,6 +73,9 @@
     font-weight: bold;
     margin-right: 0.5em;
     margin-left: 0.5em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   .adminContact .delete-btn:hover{
     background-color: rgb(247, 0, 0);
