@@ -3,6 +3,8 @@ import "../css/adminAddProduct.css"
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { FiDelete } from "react-icons/fi";
+
 
 
 const AdminAddProduct = () => {
@@ -79,6 +81,10 @@ const AdminAddProduct = () => {
     // console.log("demo images File",demoImagesFile.length)
   };
 
+  const handleDemoImageRemove = (index) => {
+    const updatedImages = demoImages.filter((_, i) => i !== index);
+    setDemoImages(updatedImages);
+  };
 
   const handleAddText = (e) => {
     e.preventDefault()
@@ -92,6 +98,11 @@ const AdminAddProduct = () => {
     }
     setDemoTexts([...demoTexts, demoTextsInputValue.trim()]);
     setDemoTextsInputValue(''); // Clear the input field
+  };
+
+  const handleAddTextRemove = (index) => {
+    const updatedImages = demoTexts.filter((_, i) => i !== index);
+    setDemoTexts(updatedImages);
   };
 
   const handleDemoCancel = (e) => {
@@ -217,7 +228,7 @@ const AdminAddProduct = () => {
             {demoImages && ( demoImages.map((image, index) => (
               <div key={index} className='item'>
                  <img  src={image} alt='img' style={{height: '80%', width: '100%'}} />
-                 <p style={{height: '20%', width: '100%',textAlign:'center',fontSize:'1vw'}}>{index+1}</p>
+                 <p style={{height: '20%', width: '100%',textAlign:'center',fontSize:'1vw'}}>{index+1} <FiDelete onClick={()=>handleDemoImageRemove(index)} /> </p>
               </div>
               ))
             )}
@@ -242,7 +253,7 @@ const AdminAddProduct = () => {
 
           <div className="right">
             { demoTexts && ( demoTexts.map((text, index) => (
-                <p key={index}>{text}</p>
+                <p key={index}>{text} <FiDelete onClick={()=>handleAddTextRemove(index)}/> </p>
             ))
             )
           }

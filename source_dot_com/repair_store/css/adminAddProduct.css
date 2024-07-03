@@ -58,6 +58,7 @@
 }
 .adminAddProduct form .productImage .labelImage label{
     font-size: 0.9vw;
+    /* border: 1px solid; */
 }
 .adminAddProduct form .productName{
     display: flex;
@@ -173,9 +174,10 @@
     height: 20%;
     /* border: 1px solid green; */
     display: flex;
+    /* gap:8%; */
     /* flex-direction: column; */
     /* flex-wrap: wrap; */
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     font-size: 1vw;
 }
