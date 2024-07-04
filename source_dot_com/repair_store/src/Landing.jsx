@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../css/landing.css'
 import { Link, useNavigate } from 'react-router-dom'
-import list from '../Data/product'
+// import list from '../Data/product'
 import { CiFacebook } from "react-icons/ci";
 import { LuInstagram } from "react-icons/lu";
 import { FaSquareXTwitter } from "react-icons/fa6";
@@ -9,8 +9,20 @@ import { FaYoutubeSquare } from "react-icons/fa";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 import Slider from 'react-slick';
+import axios from 'axios';
+
 
 const Landing = () => {
+
+  let [list,setList]=useState([])
+
+  useEffect(() => {
+    fetchProducts(); // Fetch data immediately when component mounts
+  }, []); // Empty dependency array means run once on mount
+
+  useEffect(()=>{
+    console.log("Product List updated",list)
+  },[list])
 
   let imageSlide=[
     {
@@ -35,7 +47,6 @@ const Landing = () => {
     // pauseOnHover: false, // Disable pause on hover
   };
 
-
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -43,7 +54,27 @@ const Landing = () => {
     });
   };
 
+  let fetchProducts = async () => {
+    try {
+      const response = await axios.post('http://localhost:5164/getAllProduct', {
+        eventID: "1001",
+        addInfo: {}
+      });
 
+      if (response.data.rData.rMessage === 'Successful') {
+        setList(response.data.rData.users);
+        console.log("Fetched product List successfully");
+        console.log("product List ",list);
+
+      } else {
+        console.log("Failed to fetch  Product List");
+      }
+    } catch (error) {
+      console.error("Error fetching Product List:", error);
+    }
+
+    // fetchProducts()
+  };
 
 
   return (
@@ -68,11 +99,11 @@ const Landing = () => {
           list.map((item)=>(
 
                 <div key={item.id} className="landing-item-items">
-                  <Link  to={`/card/${item.name}`} style={{textDecoration:"none"}}>
+                  <Link  to={`/card/${item.productName}`} style={{textDecoration:"none"}}>
                     {/* <div className="landing-item-img" style={{backgroundImage:'url("../Assests/alarm\ watch.jpg")'}}></div> */}
-                    <img src={item.img} alt="" className="landing-item-img" />
+                    <img src={item.productImage} alt="" className="landing-item-img" />
                     {/* <div className="landing-item-text">Alarm</div> */}
-                    <div className="landing-item-text">{item.name}</div>
+                    <div className="landing-item-text">{item.productName}</div>
                   </Link>
                 </div>
           ))

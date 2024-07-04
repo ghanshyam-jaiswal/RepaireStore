@@ -32,9 +32,9 @@ const Cart = ({cart,setCart}) => {
             {
                 cart.map((item,index)=>(
                               <div key={item.id} className='cards' >
-                                        <Link to={`/card/${item.name}`}><img src={item.img} alt="" /></Link> 
+                                        <Link to={`/card/${item.productName}`}><img src={item.productImage} alt="" /></Link> 
                                         <div className="cards-info">
-                                            <p>{item.name}</p>
+                                            <p>{item.productName}</p>
                                             <button onClick={()=>cartDelete(index)}>Delete</button>
                                         </div> 
                               </div>

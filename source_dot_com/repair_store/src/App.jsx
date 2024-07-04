@@ -30,7 +30,7 @@ const App = () => {
 
   let addToCart=(data)=>{
 
-    cart.find(card => card.name === data.name) ? toast.warning('Already Exists') : setCart([...cart,data] , toast.success('Successful'))
+    cart.find(card => card.productName === data.productName) ? toast.warning('Already Exists') : setCart([...cart,data] , toast.success('Successful'))
 
      console.log(cart)
   //    console.log(data)
@@ -53,7 +53,7 @@ const App = () => {
             <Route path="/about" element={<About />}></Route>
             <Route path="/cart" element={<Cart cart={cart} setCart={setCart}/>}></Route>
             <Route path="/profile" element={<UserProfile/>}></Route>
-            <Route path="/card/:name" element={<Card/>}></Route>
+            <Route path="/card/:productName" element={<Card/>}></Route>
             <Route path="/payment" element={<Payment addToCart={addToCart}/>}></Route>
             <Route path="/thankyou" element={<ThankYou/>}></Route>x``
             <Route path="/updateprofile" element={<UpdateProfile/>}></Route>

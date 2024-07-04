@@ -1,23 +1,37 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import list from '../Data/product'
 import '../css/card.css'
 import Payment from './Payment'
+import axios from 'axios';
+import { FiDelete } from "react-icons/fi";
+import { toast } from 'react-toastify'
+
+
 
 const Card = () => {
 
-    let {name}=useParams()
-    let selectedCard=list.find((card)=>{return card.name===name})
-    console.log(selectedCard)
-
+    let {productName}=useParams()
+    // let selectedCard=list.find((card)=>{return card.name===name})
+    // console.log(selectedCard)
     let navigate = useNavigate()
-    
-    let requestHandle=()=>{
-      navigate('/payment', { state: { selectedCard } });
-    }
-    let handleCancel=()=>{
-      navigate('/')
-    }
+
+    let [list,setList]=useState([])
+
+    let [demoImages,setDemoImages]=useState([])
+    const [demoImagesFile, setDemoImagesFile] = useState([]);
+
+    let [cardDetails,setCardDetails]=useState({
+      brand:'',
+      model:'',
+      selectedProblem:'',
+      otherProblem:'',
+      uploadedImages:[],
+    })
+
+    useEffect(()=>{
+      setCardDetails({...cardDetails,uploadedImages:demoImages})
+    },[demoImages])
 
     useEffect(()=>{
       let check=localStorage.getItem("user")|| localStorage.getItem("admin")
@@ -26,30 +40,145 @@ const Card = () => {
       }
     },[])
 
+    useEffect(() => {
+      fetchProducts(); // Fetch data immediately when component mounts
+    }, []); // Empty dependency array means run once on mount
+  
+    useEffect(()=>{
+      console.log("Card List updated",list)
+    },[list])
+
+    let fetchProducts = async () => {
+      try {
+        const response = await axios.post('http://localhost:5164/getProductByName', {
+          eventID: "1001",
+          addInfo: {
+            productName:productName
+          }
+        });
+  
+        if (response.data.rData.rMessage === 'Successful') {
+          setList(response.data.rData.users);
+          console.log("Fetched Card List successfully");
+          console.log("Card List ",list);
+  
+        } else {
+          console.log("Failed to fetch Card List");
+        }
+      } catch (error) {
+        console.error("Error fetching Card List:", error);
+      }
+  
+      // fetchProducts()
+    };
+  
+    const handleDamageImages = (e) => {
+      const files = Array.from(e.target.files);
+  
+      if (demoImages.length + files.length > 4) {
+        toast.warn('You can only upload up to 4 Images');
+        return;
+      }
+  
+      const newDemoImages = [];
+      const newDemoImagesFile = [];
+  
+      files.forEach((file) => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          newDemoImages.push(reader.result);
+          newDemoImagesFile.push(file);
+  
+          // Update state after all files are read
+          if (newDemoImages.length === files.length) {
+            setDemoImages([...demoImages, ...newDemoImages]);
+            setDemoImagesFile([...demoImagesFile, ...newDemoImagesFile]);
+          }
+        };
+        reader.readAsDataURL(file);
+      });
+      // console.log("demo images",demoImages)
+      // console.log("demo images File",demoImagesFile.length)
+    };
+
+    const handleDamageImageRemove = (index) => {
+      const updatedImages = demoImages.filter((_, i) => i !== index);
+      setDemoImages(updatedImages);
+    };
+
+    let requestHandle=()=>{
+      let selectedCard=list[0]
+      let selectedPrice=list[0].productPrice
+      let selectedCardDetails=cardDetails
+      // console.log("selectedCard",selectedCard)
+      // console.log("selectedPrice",selectedPrice)
+      navigate('/payment', { state: { selectedCard,selectedPrice,selectedCardDetails} });
+    }
+    let handleCancel=()=>{
+      navigate('/')
+    }
+
   return (
     <div className='card'>
 
       {/* <h1>Card</h1> */}
-      <div className='card-item'>
-        <img src={selectedCard.img} alt="" />
-        <h1>{selectedCard.name}</h1>
-      </div>
+
+      {
+        list.map((item)=>(
+          <div key={item.id} className='card-item'>
+            <img src={item.productImage} alt={item.productName} />
+            <h1>{item.productName}</h1>
+          </div>
+        ))
+      }
+     
       <div className='card-description'>
         <div className='card-description-box'>
-            <h3>Write The Damage Problems Here</h3>
-            <textarea name="" id=""  defaultValue="Write Here......"></textarea>
-        </div>
-        <div className='card-description-box card-description-box-example'>
-            <h3>You can write the problem like this</h3><br/><br/>
-            {selectedCard.Description.map((description,index)=>(
-                // console.log(description) 
-                <li key={index}>{description}</li> 
-                // <li>{description}</li>
-                )
-            
+            <h3>Mention The Damage Problems Here</h3>
+            {/* <textarea name="" id=""  defaultValue="Write Here......"></textarea> */}
+            <input type="text" placeholder='Brand' value={cardDetails.brand} onChange={(e)=>setCardDetails({...cardDetails,brand:e.target.value})} />
+            <input type="text" placeholder='Model' value={cardDetails.model} onChange={(e)=>setCardDetails({...cardDetails,model:e.target.value})} />
+            {/* <input type="text" placeholder='Problem - dropdown'/> */}
+            {list.map((product) => {
+              const dropdownOptions = JSON.parse(product.productDemoText);
+              return (
+                <select key={product.id} name="" id="" value={cardDetails.selectedProblem} onChange={(e)=>setCardDetails({...cardDetails,selectedProblem:e.target.value})} >
+                  <option value="" disabled >Select a problem</option>
+                  {dropdownOptions.map((text, idx) => (
+                    <option key={idx} value={text}>{text}</option>
+                  ))}
+                </select>
+              );
+            })}
+            <input type="text" placeholder='Other Problem' value={cardDetails.otherProblem} onChange={(e)=>setCardDetails({...cardDetails,otherProblem:e.target.value})} />
+            <div className='damageImage'>
+              <label htmlFor="damageImage">Upload Images - 4max</label>
+              <input type="file" id='damageImage' onChange={handleDamageImages}/>
+            </div>
+            {demoImages && ( demoImages.map((image, index) => (
+              <div key={index} className='item'>
+                 <img  src={image} alt='img' style={{height: '75%', width: '90%'}} />
+                 <p style={{height: '20%', width: '100%',textAlign:'center',fontSize:'1vw'}}>{index+1} <FiDelete onClick={()=>handleDamageImageRemove(index)} /> </p>
+              </div>
+              ))
             )}
         </div>
-        <div className='card-description-box card-description-box-img'><img src="../Assests/8303673-removebg-preview.png" alt="" /></div>
+        <div className='card-description-box-example'>
+          {
+            list.map((product) => {
+              const image = JSON.parse(product.productDemoImages);
+              return (
+                <>
+                  {image.map((img, idx) => (
+                    <img key={idx} src={img} alt={`img ${idx}`}  />
+                  ))}
+                </>
+              );
+            })
+          }
+        </div>
+
+        {/* <div className='card-description-box card-description-box-img'><img src="../Assests/8303673-removebg-preview.png" alt="" /></div> */}
         
       </div>
       <div className="card-button">
