@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { createContext, useState } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Home from "./Home";
 import Category from "./Category";
@@ -23,26 +23,18 @@ import AdminAllProducts from "./AdminAllProducts";
 import AdminAddProduct from "./AdminAddProduct";
 import AdminUpdateProduct from "./AdminUpdateProduct";
 
+export const CartContext = createContext(); 
 
 const App = () => {
 
-  let [cart,setCart]=useState([])
-
-  let addToCart=(data)=>{
-
-    cart.find(card => card.productName === data.productName) ? toast.warning('Already Exists') : setCart([...cart,data] , toast.success('Successful'))
-
-     console.log(cart)
-  //    console.log(data)
-  //    console.log(setCart)
-
- }
-
+  let [productLength,setProductLength]=useState('')
+ 
   return (
     <>
+    <CartContext.Provider value={{productLength,setProductLength}}>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home count={cart.length}/>}>
+          <Route path="/" element={<Home  />}> 
             <Route path="/" element={<Landing />}>
               {/* <Route path="/home/alarm" element={<Alarm/>}></Route> */}
             </Route>
@@ -51,11 +43,11 @@ const App = () => {
             <Route path="/login" element={<Login/>}></Route>
             <Route path="/contact" element={<Contact />}></Route>
             <Route path="/about" element={<About />}></Route>
-            <Route path="/cart" element={<Cart cart={cart} setCart={setCart}/>}></Route>
+            <Route path="/cart" element={<Cart />}></Route>
             <Route path="/profile" element={<UserProfile/>}></Route>
             <Route path="/card/:productName" element={<Card/>}></Route>
-            <Route path="/payment" element={<Payment addToCart={addToCart}/>}></Route>
-            <Route path="/thankyou" element={<ThankYou/>}></Route>x``
+            <Route path="/payment" element={<Payment />}></Route>
+            <Route path="/thankyou" element={<ThankYou/>}></Route>
             <Route path="/updateprofile" element={<UpdateProfile/>}></Route>
             <Route path="/admin" element={<Admin/>} >
               <Route index element={<Navigate to="/admin/users" />} />
@@ -71,6 +63,7 @@ const App = () => {
         </Routes>
       </BrowserRouter>
       <ToastContainer/>
+    </CartContext.Provider>
     </>
     
   );

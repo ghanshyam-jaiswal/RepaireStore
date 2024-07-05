@@ -23,6 +23,7 @@ var builder = WebHost.CreateDefaultBuilder(args)
         s.AddSingleton<getUserByEmail>();
         s.AddSingleton<admin>();
         s.AddSingleton<product>();
+        s.AddSingleton<addToCart>();
         s.AddSingleton<dbServices>();
 
 
@@ -69,6 +70,7 @@ var builder = WebHost.CreateDefaultBuilder(args)
             var deleteService = e.ServiceProvider.GetRequiredService<delete>();
             var productService = e.ServiceProvider.GetRequiredService<product>();
             var getUserByEmail = e.ServiceProvider.GetRequiredService<getUserByEmail>();
+            var addToCart = e.ServiceProvider.GetRequiredService<addToCart>();
             var admin = e.ServiceProvider.GetRequiredService<admin>();
 
             e.MapPost("login",
@@ -200,6 +202,58 @@ var builder = WebHost.CreateDefaultBuilder(args)
                 {
                     // Call the GetAllUsers method directly and return its result as JSON response
                     await http.Response.WriteAsJsonAsync(await users.GetAllUsers(rData));
+                }
+            });
+
+            e.MapPost("addToCart",
+            [AllowAnonymous] async (HttpContext http) =>
+            {
+                var body = await new StreamReader(http.Request.Body).ReadToEndAsync();
+                requestData rData = JsonSerializer.Deserialize<requestData>(body);
+                Console.WriteLine($"Received get users request: {JsonSerializer.Serialize(rData)}");
+                if (rData.eventID == "1001") // addProduct
+                {
+                    // Call the GetAllUsers method directly and return its result as JSON response
+                    await http.Response.WriteAsJsonAsync(await addToCart.AddCart(rData));
+                }
+            });
+
+            e.MapPost("getAllCarts",
+            [AllowAnonymous] async (HttpContext http) =>
+            {
+                var body = await new StreamReader(http.Request.Body).ReadToEndAsync();
+                requestData rData = JsonSerializer.Deserialize<requestData>(body);
+                Console.WriteLine($"Received get users request: {JsonSerializer.Serialize(rData)}");
+                if (rData.eventID == "1001") // addProduct
+                {
+                    // Call the GetAllUsers method directly and return its result as JSON response
+                    await http.Response.WriteAsJsonAsync(await addToCart.GetAllCarts(rData));
+                }
+            });
+
+            e.MapPost("getAllAddedCartById",
+            [AllowAnonymous] async (HttpContext http) =>
+            {
+                var body = await new StreamReader(http.Request.Body).ReadToEndAsync();
+                requestData rData = JsonSerializer.Deserialize<requestData>(body);
+                Console.WriteLine($"Received get users request: {JsonSerializer.Serialize(rData)}");
+                if (rData.eventID == "1001") // addProduct
+                {
+                    // Call the GetAllUsers method directly and return its result as JSON response
+                    await http.Response.WriteAsJsonAsync(await addToCart.GetAllAddedCartById(rData));
+                }
+            });
+
+            e.MapPost("deleteCartById",
+            [AllowAnonymous] async (HttpContext http) =>
+            {
+                var body = await new StreamReader(http.Request.Body).ReadToEndAsync();
+                requestData rData = JsonSerializer.Deserialize<requestData>(body);
+                Console.WriteLine($"Received get users request: {JsonSerializer.Serialize(rData)}");
+                if (rData.eventID == "1001") // addProduct
+                {
+                    // Call the GetAllUsers method directly and return its result as JSON response
+                    await http.Response.WriteAsJsonAsync(await addToCart.DeleteCartById(rData));
                 }
             });
 

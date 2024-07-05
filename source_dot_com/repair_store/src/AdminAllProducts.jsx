@@ -56,7 +56,6 @@ const AdminAllProducts = () => {
           id: dataToBeDelete,
         }
       }
-  
       const response = await axios.post('http://localhost:5164/deleteProduct', payload);
       console.log(response)
       if(response.data.rData.rMessage==='No rows affected. Delete failed.'){
@@ -71,7 +70,6 @@ const AdminAllProducts = () => {
       // navigate("/")
       }
     }
-    
   }
  
 
