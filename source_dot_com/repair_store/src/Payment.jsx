@@ -15,6 +15,8 @@ const Payment = () => {
     console.log("selected CardDetails ",selectedCardDetails)
 
     let user_id;
+    let user_name;
+    let user_contact;
 
     useEffect(() => {
       let userData = localStorage.getItem('user');
@@ -22,6 +24,8 @@ const Payment = () => {
           const userDetailsArray = userData.split(" - ");
           const [userId, firstName, lastName, email, password, contact, streetAddress1, streetAddress2, city, state, pincode, country, profile] = userDetailsArray;
           user_id = {userId};
+          user_name = {firstName,lastName};
+          user_contact = {contact};
       } 
       else 
       {
@@ -45,6 +49,8 @@ const Payment = () => {
           selectedProblem:selectedCardDetails.selectedProblem,
           otherProblem:selectedCardDetails.otherProblem,
           uploadedImages:selectedCardDetails.uploadedImages,
+          userName:user_name.firstName+" "+user_name.lastName,
+          contact:user_contact.contact
         }
       }
       const response = await axios.post('http://localhost:5164/addToCart', payload);

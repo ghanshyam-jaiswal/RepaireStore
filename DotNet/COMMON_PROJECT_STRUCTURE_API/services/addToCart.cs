@@ -31,8 +31,8 @@ namespace COMMON_PROJECT_STRUCTURE_API.services
                 else
                 {
                    var sq = @"INSERT INTO pc_student.repairStoreAddToCart
-                    (id,productName, productImage, productPrice, brand, model, selectedProblem, otherProblem, uploadedImages) 
-                    VALUES (@id, @productName, @productImage, @productPrice,  @brand, @model, @selectedProblem, @otherProblem, @uploadedImages)";
+                    (id,productName, productImage, productPrice, brand, model, selectedProblem, otherProblem, uploadedImages, userName, contact) 
+                    VALUES (@id, @productName, @productImage, @productPrice,  @brand, @model, @selectedProblem, @otherProblem, @uploadedImages, @userName, @contact )";
 
                     // if (!decimal.TryParse(rData.addInfo["productPrice"].ToString(), out decimal productPrice))
                     // {
@@ -53,6 +53,8 @@ namespace COMMON_PROJECT_STRUCTURE_API.services
                         new MySqlParameter("@selectedProblem", rData.addInfo["selectedProblem"]),
                         new MySqlParameter("@otherProblem", rData.addInfo["otherProblem"]),
                         new MySqlParameter("@uploadedImages", rData.addInfo["uploadedImages"]),
+                        new MySqlParameter("@userName", rData.addInfo["userName"]),
+                        new MySqlParameter("@contact", rData.addInfo["contact"]),
                     };
                     var insertResult = ds.executeSQL(sq, insertParams);
 
@@ -114,6 +116,8 @@ namespace COMMON_PROJECT_STRUCTURE_API.services
                                     selectedProblem = rowData.ElementAtOrDefault(8),
                                     otherProblem = rowData.ElementAtOrDefault(9),
                                     uploadedImages = rowData.ElementAtOrDefault(10),
+                                    userName = rowData.ElementAtOrDefault(11),
+                                    contact = rowData.ElementAtOrDefault(12),
                                 };
 
                                 usersList.Add(user);
@@ -189,6 +193,8 @@ namespace COMMON_PROJECT_STRUCTURE_API.services
                                     selectedProblem = rowData.ElementAtOrDefault(8),
                                     otherProblem = rowData.ElementAtOrDefault(9),
                                     uploadedImages = rowData.ElementAtOrDefault(10),
+                                    userName = rowData.ElementAtOrDefault(11),
+                                    contact = rowData.ElementAtOrDefault(12),
                                 };
 
                                 usersList.Add(user);

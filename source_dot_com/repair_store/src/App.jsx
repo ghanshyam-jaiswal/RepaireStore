@@ -7,6 +7,7 @@ import About from "./About";
 import Contact from "./Contact";
 import Login from "./Login";
 import Cart from "./Cart";
+import CartDetails from "./CartDetails";
 import UserProfile from "./UserProfile";
 import Landing from "./Landing";
 import Card from "./Card";
@@ -44,6 +45,7 @@ const App = () => {
             <Route path="/contact" element={<Contact />}></Route>
             <Route path="/about" element={<About />}></Route>
             <Route path="/cart" element={<Cart />}></Route>
+            <Route path="/cartDetails" element={<CartDetails/>}></Route>
             <Route path="/profile" element={<UserProfile/>}></Route>
             <Route path="/card/:productName" element={<Card/>}></Route>
             <Route path="/payment" element={<Payment />}></Route>

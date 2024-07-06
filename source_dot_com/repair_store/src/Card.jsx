@@ -106,14 +106,40 @@ const Card = () => {
       setDemoImages(updatedImages);
     };
 
+    let isValidate=()=>{
+
+      let proceed=true
+      let message='Enter';
+  
+      if(cardDetails.brand===''|| cardDetails.brand===null){
+        proceed=false
+        message+=' Brand'
+      }
+      if(cardDetails.model===''|| cardDetails.model===null){
+        proceed=false
+        message+=' Model'
+      }
+      if( (cardDetails.selectedProblem === '' || cardDetails.selectedProblem === null) && 
+          (cardDetails.otherProblem === '' || cardDetails.otherProblem === null) ){
+        proceed=false
+        message+=' Problem'
+      }
+      if(!proceed){
+        toast.info(message)
+      }
+      return proceed
+    }
+
     let requestHandle=()=>{
       let selectedCard=list[0]
       let selectedPrice=list[0].productPrice
       let selectedCardDetails=cardDetails
       // console.log("selectedCard",selectedCard)
       // console.log("selectedPrice",selectedPrice)
+      if (!isValidate()) return;
       navigate('/payment', { state: { selectedCard,selectedPrice,selectedCardDetails} });
     }
+
     let handleCancel=()=>{
       navigate('/')
     }

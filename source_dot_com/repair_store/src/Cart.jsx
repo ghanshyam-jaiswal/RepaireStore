@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import { CartContext } from './App';
 import { toast } from 'react-toastify';
+import cartDetails from './CartDetails';
 
 
 const Cart = () => {
@@ -99,6 +100,11 @@ const Cart = () => {
     }
   }
 
+  let handleViewDetails=(details)=>{
+    console.log("details",details)
+    navigate("/cartDetails",{state:{details}})
+  }
+
   return (
     <>
       {productDetails.length>0 ?
@@ -109,10 +115,13 @@ const Cart = () => {
             {
                 productDetails.map((item,index)=>(
                               <div key={index} className='cards' >
-                                        <Link to={`/card/${item.productName}`}><img src={item.productImage} alt="" /></Link> 
+                                        {/* <Link to={{pathname:"/cartDetails", state: { }}}> */}
+                                          <img src={item.productImage} alt="" />
+                                        {/* </Link>  */}
                                         <div className="cards-info">
                                             <p>{item.productName}</p>
-                                            <button onClick={()=>handleCartDelete(productDetails[index])}>Cancel</button>
+                                            <button onClick={()=>handleViewDetails(productDetails[index])} className='viewMore' >View</button>
+                                            <button onClick={()=>handleCartDelete(productDetails[index])} className='cancel' >Cancel</button>
                                         </div> 
                               </div>
                       )

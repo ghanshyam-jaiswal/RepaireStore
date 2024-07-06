@@ -81,6 +81,7 @@ let handleDeleteContact = async (dataToBeDelete)=> {
             <thead>
               <tr>
                 <th>Id</th>
+                <th>Date-Time</th>
                 <th>Name</th>
                 <th>Email</th>
                 <th>Message</th>
@@ -91,6 +92,7 @@ let handleDeleteContact = async (dataToBeDelete)=> {
                 {userDetails.map((user,index) => (
                     <tr key={index}>
                         <td>{user.id}</td>
+                        <td>{user.dateAndTime || '--'}</td>
                         <td>{user.name}</td>
                         <td>{user.email}</td>
                         <td>{user.message || '--'}</td>

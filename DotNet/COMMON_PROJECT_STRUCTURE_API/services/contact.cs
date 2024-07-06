@@ -29,13 +29,14 @@ namespace COMMON_PROJECT_STRUCTURE_API.services
                 }
                 else
                 {
-                   var sq = @"INSERT INTO pc_student.RepaireStoreContact (name, email, message) 
-                               VALUES (@NAME, @EMAIL, @MESSAGE)";
+                   var sq = @"INSERT INTO pc_student.RepaireStoreContact (name, email, message, dateAndTime) 
+                               VALUES (@NAME, @EMAIL, @MESSAGE, @dateAndTime)";
                   MySqlParameter[] insertParams = new MySqlParameter[]
                     {
                         new MySqlParameter("@NAME", rData.addInfo["name"]),
                         new MySqlParameter("@EMAIL", rData.addInfo["email"]),
                         new MySqlParameter("@MESSAGE", rData.addInfo["message"]),
+                        new MySqlParameter("@dateAndTime", rData.addInfo["dateAndTime"]),
                     };
                     var insertResult = ds.executeSQL(sq, insertParams);
 
@@ -90,6 +91,7 @@ namespace COMMON_PROJECT_STRUCTURE_API.services
                                     Name = rowData.ElementAtOrDefault(1),
                                     Email = rowData.ElementAtOrDefault(2),
                                     Message = rowData.ElementAtOrDefault(3),
+                                    dateAndTime = rowData.ElementAtOrDefault(4),
                                 };
 
                                 usersList.Add(user);
