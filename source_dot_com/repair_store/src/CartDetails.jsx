@@ -1,21 +1,63 @@
-import React from 'react'
-import { useLocation } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import "../css/cartDetails.css"
+import { RiMoneyRupeeCircleFill } from "react-icons/ri";
+import { SlCalender } from "react-icons/sl";
+import axios from 'axios';
+import { toast } from 'react-toastify';
+
 
 const cartDetails = () => {
 
     let location=useLocation()
     let {details}=location.state
+    // console.log("cartDetails",details)
     const uploadedImages = JSON.parse(details.uploadedImages);
+
+    let navigate=useNavigate()
+
+    useEffect(()=>{
+    },[details])
+
+
+    let handleCartDelete = async ()=> {
+      let confirm=window.confirm("Are You Sure")
+      if(confirm){
+  
+        let payload={
+          eventID: "1001",
+          addInfo: {
+            table_id: details.table_id,
+          }
+        }
+        const response = await axios.post('http://localhost:5164/deleteCartById', payload);
+        // console.log(response)
+        if(response.data.rData.rMessage==='No rows affected. Delete failed.'){
+          toast.error("Failed")
+        }
+        else if(response.data.rData.rMessage==='DELETE SUCCESSFULLY.'){
+        toast.success("Deleted Successful")
+        navigate("/cart")
+        }
+      }
+    }
 
   return (
     <div className='cartDetails'>
 
       {/* <h1 className='heading'>Product Details</h1> */}
       <div  className='card-item'>
-        <img src={details.productImage} alt={details.productName} />
-        <h1>{details.productName}</h1>
-        <h1>{details.productPrice}</h1>   
+        <div className='img-name'>
+          <img src={details.productImage} alt={details.productName} />
+          <h1>{details.productName}</h1>
+        </div>
+        <div className='price-date'>
+          <h1><RiMoneyRupeeCircleFill /> {details.productPrice}</h1>  
+          <p>{details.dateAndTime}</p>
+        </div>
+         
+          
+        
       </div>
 
       <div className='card-description'>
@@ -50,23 +92,26 @@ const cartDetails = () => {
 
             }
             <div className='data'>
-                <div className='data1' >Date</div> 
+                <div className='data1 date' ><SlCalender /> Date</div> 
                 <div className='data2' >:</div>
-                <div className='data3' >{details.dateAndTime}</div>
+                <div className='data3' > {details.dateAndTime}</div>
             </div>
         </div>
         <div className='box2'>
-            {
-                uploadedImages.map((img, idx) => (
+          {/* { details.uploadedImages ? <p>Your Uploaded Images</p> : '--'} */}
+          <p>Your Uploaded Images</p>
+          { 
+            uploadedImages.map((img, idx) => (
                     <img key={idx} src={img} alt={`img ${idx}`}  />
                   ))
-            }
+            
+          }
         </div>
 
       </div>
       <div className="card-button">
-        <button className='card-button-request' >Request</button>
-        <button className='card-button-cancel' >Cancel</button>
+        <button className='card-button-request' onClick={()=>navigate('/cart')}>Back</button>
+        <button className='card-button-cancel' onClick={handleCartDelete}>Cancel</button>
       </div>
       
     </div>

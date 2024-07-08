@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import { CartContext } from './App';
 import { toast } from 'react-toastify';
-import cartDetails from './CartDetails';
+// import cartDetails from './CartDetails';
 
 
 const Cart = () => {

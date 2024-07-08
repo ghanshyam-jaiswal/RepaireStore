@@ -17,7 +17,10 @@
     /* border: 1px solid; */
     /* margin-top: 50%; */
     /* margin-right: 800px; */
-   
+    /* display: flex;
+    flex-direction: column;
+   justify-content: center;
+   align-items: center; */
   }
   
   .dropdown-content a {

@@ -105,10 +105,11 @@
     height: 27.7%;
     background-color: rgb(214, 214, 193);
     box-shadow: 0px 0px 1px rgb(0, 0, 0);
-
+    font-size: 1vw;
+    /* font-weight: 500; */
     /* border: 0.1px solid; */
     /* margin-bottom: 50%; */
-    /* color: white; */
+    color: rgb(0, 0, 0);
     display: flex;
     justify-content: center;
     align-items: center;

@@ -56,7 +56,6 @@ const Footer = () => {
           <Link to={"/contact"}>Contact</Link>
         </div>
         <div>
-          {" "}
           <Link to={"/about"}>About</Link>
         </div>
       </div>

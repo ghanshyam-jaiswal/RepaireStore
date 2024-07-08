@@ -63,8 +63,8 @@ const Landing = () => {
 
       if (response.data.rData.rMessage === 'Successful') {
         setList(response.data.rData.users);
-        console.log("Fetched product List successfully");
-        console.log("product List ",list);
+        // console.log("Fetched product List successfully");
+        // console.log("product List ",list);
 
       } else {
         console.log("Failed to fetch  Product List");

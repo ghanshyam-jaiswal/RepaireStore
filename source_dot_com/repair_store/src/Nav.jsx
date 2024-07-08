@@ -4,32 +4,34 @@ import "../css/nav.css";
 import { FaShoppingCart } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
 import '../css/dropdown.css'
-import list from "../Data/product";
+// import list from "../Data/product";
 import { toast } from "react-toastify";
 import { CartContext } from "./App";
+import axios from 'axios';
+
 
 
 const Nav = () => {
 
+  let navigate=useNavigate()
+
   const [showDropdown, setShowDropdown] = useState(false);
   let {productLength,setProductLength}=useContext(CartContext)
+  let [list,setList]=useState([])
 
+  useEffect(() => {
+    fetchProducts();
+  }, []); 
 
-  // let [list,setList]=useState([])
-
-  // useEffect(() => {
-  //   fetchProducts();
-  // }, []); 
-
-  // useEffect(()=>{
-  //   console.log("Dropdown List updated",list)
-  // },[list])
+  useEffect(()=>{
+    console.log("category List updated",list)
+  },[list])
 
   const toggleDropdown = () => {
     setShowDropdown(!showDropdown);
+    // console.log("category list",list)
   };
 
-  let navigate=useNavigate()
 
   // let effectCall= useEffect(()=>{
   //   let check=localStorage.getItem("user")
@@ -46,23 +48,25 @@ const Nav = () => {
 
   let fetchProducts = async () => {
     try {
-      const response = await axios.post('http://localhost:5164/getAllProduct', {
+      const response = await axios.post('http://localhost:5164/getAllProductName', {
         eventID: "1001",
         addInfo: {}
       });
 
       if (response.data.rData.rMessage === 'Successful') {
+
         setList(response.data.rData.users);
-        console.log("Fetched Dropdown List successfully");
-        console.log("Dropdown List ",list);
+        // console.log("Fetched category List successfully");
+        // console.log("category response",response)
+        // console.log("category response",response.data.rData.users)
+        // console.log("category List ",list);
 
       } else {
-        console.log("Failed to fetch  Dropdown List");
+        console.log("Failed to fetch  category List");
       }
     } catch (error) {
-      console.error("Error fetching Dropdown List:", error);
+      console.error("Error fetching category List:", error);
     }
-
     // fetchProducts()
   };
 
@@ -79,11 +83,12 @@ const Nav = () => {
           {/* <NavLink to={"/category"} className={(e)=>{return e.isActive?"red":" "}} >Category</NavLink> */}
 
           <div className="dropdown" onMouseEnter={toggleDropdown} onMouseLeave={toggleDropdown}  >
+          {/* <div className="dropdown" onClick={()=>toggleDropdown()}  > */}
             <NavLink >Category</NavLink>
             {showDropdown ? (
                 <div className="dropdown-content">
-                  {list.map((item,index)=>(
-                    <NavLink key={index} to={`/card/${item}`} >{item.name}</NavLink>
+                  { list.map((item,index)=>(
+                    <NavLink key={index} to={`/card/${item.productName}`} >{item.productName}</NavLink>
                   ))}
                 </div>
                 ) : null}

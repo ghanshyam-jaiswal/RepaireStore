@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import list from '../Data/product'
 import '../css/card.css'
 import Payment from './Payment'
@@ -11,7 +11,8 @@ import { toast } from 'react-toastify'
 
 const Card = () => {
 
-    let {productName}=useParams()
+    let {productName}=useParams() 
+    // || useLocation().state
     // let selectedCard=list.find((card)=>{return card.name===name})
     // console.log(selectedCard)
     let navigate = useNavigate()
@@ -42,11 +43,15 @@ const Card = () => {
 
     useEffect(() => {
       fetchProducts(); // Fetch data immediately when component mounts
-    }, []); // Empty dependency array means run once on mount
+    }, [productName]); // Empty dependency array means run once on mount
   
     useEffect(()=>{
       console.log("Card List updated",list)
     },[list])
+
+    // useEffect(()=>{
+    //   // console.log("Card List updated",list)
+    // },[productName])
 
     let fetchProducts = async () => {
       try {
@@ -176,7 +181,7 @@ const Card = () => {
                 </select>
               );
             })}
-            <input type="text" placeholder='Other Problem' value={cardDetails.otherProblem} onChange={(e)=>setCardDetails({...cardDetails,otherProblem:e.target.value})} />
+            <input type="text" placeholder='Other Problem' maxLength={400} value={cardDetails.otherProblem} onChange={(e)=>setCardDetails({...cardDetails,otherProblem:e.target.value})} />
             <div className='damageImage'>
               <label htmlFor="damageImage">Upload Images - 4max</label>
               <input type="file" id='damageImage' onChange={handleDamageImages}/>

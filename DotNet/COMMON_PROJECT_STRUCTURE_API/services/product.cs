@@ -123,6 +123,68 @@ namespace COMMON_PROJECT_STRUCTURE_API.services
 
             return resData;
         }
+        public async Task<responseData> GetAllProductName(requestData rData)
+        {
+            responseData resData = new responseData();
+            try
+            {
+                var query = @"SELECT productName FROM pc_student.RepairStoreProduct ORDER BY id DESC";
+                var dbData = ds.executeSQL(query, null);
+
+                if (dbData == null)
+                {
+                    resData.rData["rMessage"] = "Database query returned null";
+                    resData.rStatus = 1; // Indicate error
+                    return resData;
+                }
+
+                List<object> usersList = new List<object>();
+
+                foreach (var rowSet in dbData)
+                {
+                    if (rowSet != null)
+                    {
+                        foreach (var row in rowSet)
+                        {
+                            if (row != null)
+                            {
+                                List<string> rowData = new List<string>();
+
+                                foreach (var column in row)
+                                {
+                                    if (column != null)
+                                    {
+                                        rowData.Add(column.ToString());
+                                    }
+                                }
+
+                                var user = new
+                                {
+                                    // id = rowData.ElementAtOrDefault(0),
+                                    // productImage = rowData.ElementAtOrDefault(1),
+                                    productName = rowData.ElementAtOrDefault(0),
+                                    // productPrice = rowData.ElementAtOrDefault(3),
+                                    // productDemoImages = rowData.ElementAtOrDefault(4),
+                                    // productDemoText = rowData.ElementAtOrDefault(5),
+                                };
+
+                                usersList.Add(user);
+                            }
+                        }
+                    }
+                }
+
+                resData.rData["users"] = usersList;
+                resData.rData["rMessage"] = "Successful";
+            }
+            catch (Exception ex)
+            {
+                resData.rData["rMessage"] = "Exception occurred: " + ex.Message;
+                resData.rStatus = 1; // Indicate error
+            }
+
+            return resData;
+        }
         public async Task<responseData> GetProductById(requestData rData)
         {
             responseData resData = new responseData();

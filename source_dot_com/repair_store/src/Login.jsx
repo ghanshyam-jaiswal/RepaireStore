@@ -112,23 +112,23 @@ const Login = () => {
 
   return (
     <section className='login-parent'>
-    <div className='login'>
-    <h1>Login </h1>
-    <form >
-      {/* <input type='email' placeholder='Email' value={userDetails.email} onChange={e=>setUserDetails({...userDetails,email:e.target.value})} /><br/><br/> */}
-      <div className="icon-text"> <label htmlFor="email"><MdEmail className="icon"/></label> <input type="email" id="email" placeholder="Email" value={userDetails.email} onChange={(e)=>setUserDetails({...userDetails,email:e.target.value})}/> </div>
-      <div className="icon-text"> <label htmlFor="pass">{visible ? <ImEyeBlocked onClick={() => setVisible(!visible)} className='icon'/> : <ImEye onClick={() => setVisible(!visible)} className='icon' />}</label> <input type={visible?'text':'password'} id="pass" placeholder="Password" value={userDetails.password} onChange={(e)=>setUserDetails({...userDetails,password:e.target.value})}/> </div>
+      <div className='login'>
+        <h1>Login </h1>
+        <form >
+          {/* <input type='email' placeholder='Email' value={userDetails.email} onChange={e=>setUserDetails({...userDetails,email:e.target.value})} /><br/><br/> */}
+          <div className="icon-text"> <label htmlFor="email"><MdEmail className="icon"/></label> <input type="email" id="email" placeholder="Email" value={userDetails.email} onChange={(e)=>setUserDetails({...userDetails,email:e.target.value})}/> </div>
+          <div className="icon-text"> <label htmlFor="pass">{visible ? <ImEyeBlocked onClick={() => setVisible(!visible)} className='icon'/> : <ImEye onClick={() => setVisible(!visible)} className='icon' />}</label> <input type={visible?'text':'password'} id="pass" placeholder="Password" value={userDetails.password} onChange={(e)=>setUserDetails({...userDetails,password:e.target.value})}/> </div>
 
-      {/* <input type='password' placeholder='Password' value={userDetails.password} onChange={e=>setUserDetails({...userDetails,password:e.target.value})} /><br/><br/> */}
-      {/* <input type='submit' value='Login' className='submit-btn' /> */}
-      <button className='submit-btn' onClick={handleLogin}>Login</button>
-      <button className='submit-btn' onClick={()=>handleCreateAccount()}>Create Account</button>
-      {/* <input type='submit' value='create account' className='submit-btn' /> */}
-      {/* <Link t={'/signup'}>create account</Link> */}
-      
-    </form>
-  </div>
-  </section>
+          {/* <input type='password' placeholder='Password' value={userDetails.password} onChange={e=>setUserDetails({...userDetails,password:e.target.value})} /><br/><br/> */}
+          {/* <input type='submit' value='Login' className='submit-btn' /> */}
+          <button className='submit-btn' onClick={handleLogin}>Login</button>
+          <button className='submit-btn' onClick={()=>handleCreateAccount()}>Create Account</button>
+          {/* <input type='submit' value='create account' className='submit-btn' /> */}
+          {/* <Link t={'/signup'}>create account</Link> */}
+          
+        </form>
+      </div>
+    </section>
   )
 }
 

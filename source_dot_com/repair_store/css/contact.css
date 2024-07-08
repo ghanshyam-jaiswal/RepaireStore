@@ -43,6 +43,10 @@
     /* background-color: yellow; */
     padding: 2%;
 }
+.contact-details-1-details div,textarea{
+
+
+}
 .contact-details-1-details .icon{
     font-size: 1.5em; 
 }
@@ -55,6 +59,7 @@
     border-radius: 5px;
     background-color: rgb(212, 228, 243);
     outline: none;
+    font-size: 0.8vw;
 }
 .contact-details-1-details textarea:hover{
     background-color: rgb(192, 213, 233);
@@ -72,6 +77,9 @@
     background-color: rgb(212, 228, 243);
     /* backdrop-filter: ; */
 }
+.contact-details-1-details .icon-text label,input{
+    font-size: 0.8vw;
+}
 .contact-details-1-details .icon-text:hover{
     background-color: rgb(192, 213, 233);
 
@@ -87,12 +95,15 @@
 }
 
 .contact-details-1-details-button button{
-    width: 40%;
+    width: 30%;
     height: 100%;
     border-radius: 10px;
     border: none;
     /* margin-left: 30%; */
-    background-color: rgb(58, 219, 58);
+    background-color: rgb(49, 190, 49);
+    font-size: 0.8vw;
+    font-weight: bold;
+    cursor: pointer;
 }
 .contact-details-1-details-button button:hover{
     background-color: rgb(51, 197, 51);
@@ -135,7 +146,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 3rem;
+    font-size: 1.5vw;
 }
 .contact-details-2 img{
     width: 50%;
@@ -162,7 +173,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 3em; 
+    font-size: 2.3vw; 
 }
 .contact-option-box-h{
     width: 100%;
@@ -171,6 +182,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 0.8vw;
 }
 .contact-option-box-p{
     width: 100%;
@@ -180,4 +192,6 @@
     justify-content: center;
     align-items: center;
     padding: 4%;
+    font-size: 0.8vw;
+
 }

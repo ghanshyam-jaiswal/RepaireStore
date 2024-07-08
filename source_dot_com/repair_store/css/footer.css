@@ -38,6 +38,12 @@
     flex-direction: column; */
     /* margin-left: 0%; */
 }
+.footer-info-title h1{
+    font-size: 1.2vw;
+}
+.footer-info-title h3{
+    font-size: 2.2vw;
+}
 .footer-info-icon{
     margin-right: 5%;
 }
@@ -45,7 +51,7 @@
     padding-top: 5%;
     cursor: pointer;
     border: 1x solid white;
-
+    font-size: 0.84vw;
 }
 .footer-info-link div a{
     text-decoration: none;

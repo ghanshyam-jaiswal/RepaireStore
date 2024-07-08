@@ -26,6 +26,10 @@
     /* background-color: black; */
    
 }
+.update form h1{
+    font-size: 1.5vw;
+    /* border: 1px solid; */
+}
 .update form .update-div{
     width: 86%;
     height: 90%;
@@ -51,13 +55,21 @@
     /* border: 1px solid; */
     width: 90%;
     height: 15%;
-
+    display: flex;
+    flex-wrap: wrap;
+}
+.update-fullname label{
+    /* border: 1px solid; */
+    width: 90%;
+    height: 25%;
+    font-size: 0.9vw;
 }
 .update-fullname input{
     height: 39%;
     width: 45%;
     border-radius: 5px;
     margin-right: 5%;
+    /* border: 1px solid; */
 }
 .update-email{
     /* border: 1px solid; */
@@ -70,8 +82,12 @@
     width: 7%;
     height: 19%;
     padding-top: 0.5%;
+    /* font-size: vw; */
 }
+.update-email label{
+    font-size: 0.9vw;
 
+}
 .update-email input{
     height: 39%;
     width: 95.3%;
@@ -83,6 +99,9 @@
     width: 90%;
     height: 15%;
 }
+.update-contact label{
+ font-size: 0.9vw;
+}
 .update-contact input{
     height: 39%;
     width: 95.3%;
@@ -93,6 +112,9 @@
     /* border: 1px solid; */
     width: 90%;
     height: 33%;
+}
+.update-address label{
+    font-size: 0.9vw;
 }
 .update-address input{
     height: 18%;
@@ -110,13 +132,15 @@
     align-items: center;
 }
 .update-submit button{
-    width: 18%;
+    width: 16%;
     height: 100%;
-    border-radius: 5px;
+    border-radius: 7px;
     color:white;
     border: none;
     /* text-align: center; */
     /* background-color: rgb(81, 81, 222); */
+    font-size: 0.8vw;
+    /* font-weight: bold; */
 }
 .update-submit .btn-save{
     background-color: rgb(81, 81, 222);

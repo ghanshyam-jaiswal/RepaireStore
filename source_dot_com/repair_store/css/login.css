@@ -35,8 +35,8 @@
     }
     .login h1{
         /* text-shadow: 1px 1px 5px black; */
-        /* font-size: x-large; */
-        color: rgb(0, 0, 0);
+        font-size: 1.3vw;
+        /* color: rgb(0, 0, 0); */
     }
     .login form{
         display: flex;
@@ -78,6 +78,8 @@
         padding-left:5% ;
         background-color: transparent;
         /* border: 1px solid; */
+        font-size: 0.8vw;
+        /* font-weight: 600; */
     }
 
     .login form input{
@@ -98,6 +100,9 @@
     }
     .login form .icon-text:hover{
         background-color: rgb(155, 155, 218);
+    }
+    .login form button{
+        font-size: 0.7vw;
     }
     .login form .submit-btn{
         width: 30%;
