@@ -3,6 +3,7 @@ import axios from 'axios';
 import "../css/adminUsers.css"
 import { useNavigate } from 'react-router-dom';
 import { MdDeleteForever } from "react-icons/md";
+import { toast } from 'react-toastify';
 
 const AdminUsers = () => {
 
@@ -69,14 +70,14 @@ const AdminUsers = () => {
       const response = await axios.post('http://localhost:5164/delete', payload);
       console.log(response)
       if(response.data.rData.rMessage==='No rows affected. Delete failed.'){
-              toast.error("Failed")
+          toast.error("Failed")
       }
       else if(response.data.rData.rMessage==='DELETE SUCCESSFULLY.'){
-      // localStorage.removeItem('user')
-      // toast.success("Delete Successful")
-      console.log("deleted successful")
-      fetchUsers();
-      // navigate("/")
+        // localStorage.removeItem('user')
+        toast.success("Delete Successful")
+        console.log("deleted successful")
+        fetchUsers();
+        // navigate("/")
       }
     }
     

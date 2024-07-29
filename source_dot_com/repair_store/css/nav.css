@@ -3,7 +3,7 @@
     width: 100%;
     /* width: 99vw; */
     height: 10%;
-    /* border: 1px solid; */
+    /* border: 3px solid yellow; */
     display: flex;
     align-items: center;
     background-color: black;
@@ -57,3 +57,70 @@
 /* .nav-profile{
     font-size: 160%;
 } */
+
+
+
+
+/* Media Queries */
+
+/* Styles for screen sizes up to 1024px */
+@media only screen and (max-width: 1024px) {
+    .nav-title {
+        font-size: 1.5vw;
+    }
+
+    .nav a {
+        font-size: 1.5vw;
+    }
+}
+
+/* Styles for screen sizes up to 768px */
+@media only screen and (max-width: 768px) {
+    .nav-logo {
+        width: 6%;
+    }
+
+    .nav-title {
+        font-size: 2vw;
+    }
+
+    .nav-links {
+        margin-left: 20%;
+    }
+
+    .nav a {
+        font-size: 2vw;
+    }
+}
+
+/* Styles for screen sizes up to 480px */
+@media only screen and (max-width: 480px) {
+    .nav {
+        height: 15%;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .nav-logo {
+        width: 10%;
+        height: auto;
+        margin-left: 5%;
+        margin-bottom: 1%;
+    }
+
+    .nav-title {
+        font-size: 3vw;
+    }
+
+    .nav-links {
+        width: 100%;
+        margin-left: 0;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .nav a {
+        font-size: 3vw;
+        margin: 1% 0;
+    }
+}

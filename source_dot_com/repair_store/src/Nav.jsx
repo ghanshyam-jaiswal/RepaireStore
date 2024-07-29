@@ -42,9 +42,11 @@ const Nav = () => {
   // },[navigate])
 
   let handleLogout=()=>{
-    localStorage.removeItem('user') || localStorage.removeItem("admin")
-    toast.success("Logout Successful")
-    navigate("/")
+    if(window.confirm("Are you sure")){
+      localStorage.removeItem('user') || localStorage.removeItem("admin")
+      toast.success("Logout Successful")
+      navigate("/login")
+    }
   }
 
   // let fetchProducts = async () => {
@@ -99,7 +101,7 @@ const Nav = () => {
           {/* <NavLink to={"/signup"} className={(e)=>{return e.isActive?"red":" "}}>Sign Up</NavLink> */}
 
           {localStorage.getItem("user") || localStorage.getItem("admin") ?
-                                  <NavLink to={"/login"} className={(e)=>{return e.isActive?"red":" "}} onClick={()=>handleLogout()}>Logout</NavLink>
+                                  <NavLink className={(e)=>{return e.isActive?"red":" "}} onClick={()=>handleLogout()}>Logout</NavLink>
                                   :<NavLink to={"/login"} className={(e)=>{return e.isActive?"red":" "}} >Login</NavLink>}
           {
             localStorage.getItem("admin") 
