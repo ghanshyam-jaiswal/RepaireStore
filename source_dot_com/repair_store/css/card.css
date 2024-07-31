@@ -177,3 +177,120 @@
     background-color: rgb(176, 89, 35);
 
 }
+
+
+
+
+
+
+
+
+
+/* Media Queries */
+
+
+
+@media (max-width: 1024px) {
+    .card-item {
+        flex-direction: column;
+        height: auto;
+    }
+    .card-item img {
+        width: 50%;
+    }
+    .card-item h1 {
+        font-size: 2vw;
+        margin-left: 0;
+        margin-bottom: 2%;
+    }
+    .card-description{
+        justify-content: space-around;
+    }
+    .card-description-box {
+        /* width: 60%; */
+        /* border: 1px solid; */
+    }
+    .card-description-box h3 {
+        font-size: 1.2vw;
+    }
+    .card-description-box input, .card-description-box select {
+        font-size: 1vw;
+    }
+    .card-button button{
+        width: 8%;
+        height: 50%;
+        border-radius: 5%;
+        font-size: 0.9vw;
+    }
+}
+
+@media (max-width: 768px) {
+    .card-item {
+        flex-direction: column;
+        height: auto;
+    }
+    .card-item img {
+        /* width: 60%; */
+    }
+    .card-item h1 {
+        font-size: 2.5vw;
+        margin-left: 0;
+        margin-top: 10px;
+    }
+    .card-description-box {
+        /* width: 100%; */
+    }
+    .card-description-box h3 {
+        font-size: 1.5vw;
+    }
+    .card-description-box input, .card-description-box select {
+        font-size: 1.2vw;
+    }
+    .card-description-box-example{
+        width: 35%;
+        height: 65%;
+        /* border: 1px solid; */
+    }
+    .card-button button{
+        height: 40%;
+    }
+}
+
+@media (max-width: 480px) {
+    .card-item {
+        flex-direction: column;
+        height: auto;
+    }
+    .card-item img {
+        width: 80%;
+    }
+    .card-item h1 {
+        font-size: 3vw;
+        margin-left: 0;
+        margin-top: 10px;
+    }
+    .card-description{
+        height: 80%;
+        flex-direction: column;
+    }
+    .card-description-box {
+        width: 80%;
+    }
+    .card-description-box h3 {
+        font-size: 2vw;
+        /* border: 1px solid; */
+        justify-content: center;
+    }
+    .card-description-box-example{
+        width: 70%;
+        height: 40%;
+        /* border: 1px solid; */
+    }
+    .card-description-box input, .card-description-box select {
+        font-size: 1.5vw;
+    }
+    .card-button button {
+        width: 15%;
+        font-size: 1.2vw;
+    }
+}

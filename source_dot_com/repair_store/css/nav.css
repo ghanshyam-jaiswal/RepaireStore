@@ -96,27 +96,34 @@
 /* Styles for screen sizes up to 480px */
 @media only screen and (max-width: 480px) {
     .nav {
-        height: 15%;
+        height: 25%;
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
+        justify-content: center;
+        /* border: 5px solid white; */
     }
 
     .nav-logo {
-        width: 10%;
-        height: auto;
-        margin-left: 5%;
-        margin-bottom: 1%;
+        /* width: 19%; */
+        background-image: none;
+        /* height: 35%; */
+        /* margin-left: 5%; */
+        /* margin-bottom: 1%; */
+        /* border: 5px solid white; */
     }
 
     .nav-title {
-        font-size: 3vw;
+        font-size: 2.5vw;
+        /* border: 5px solid white; */
     }
 
     .nav-links {
         width: 100%;
         margin-left: 0;
-        flex-direction: column;
-        align-items: flex-start;
+        /* flex-direction: column; */
+        align-items: center;
+        /* border: 5px solid white; */
+
     }
 
     .nav a {
@@ -124,3 +131,8 @@
         margin: 1% 0;
     }
 }
+
+
+
+
+

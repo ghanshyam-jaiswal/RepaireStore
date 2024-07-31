@@ -50,3 +50,54 @@
 .payment-body .btn-cancel:hover{
     background-color: rgb(207, 60, 60);
 }
+
+
+
+/* Media Queries */
+
+
+
+@media (max-width: 1024px) {
+    .payment-body {
+        width: 30%;
+        height: 35%;
+    }
+    .payment-body h1 {
+        font-size: 1.5em;
+    }
+    .payment-body button {
+        width: 40%;
+        height: 15%;
+        font-size: 1em;
+    }
+}
+
+@media (max-width: 768px) {
+    .payment-body {
+        width: 40%;
+        height: 40%;
+    }
+    .payment-body h1 {
+        font-size: 1.2em;
+    }
+    .payment-body button {
+        width: 45%;
+        height: 15%;
+        font-size: 1em;
+    }
+}
+
+@media (max-width: 480px) {
+    .payment-body {
+        width: 80%;
+        height: 50%;
+    }
+    .payment-body h1 {
+        font-size: 1em;
+    }
+    .payment-body button {
+        width: 50%;
+        height: 15%;
+        font-size: 0.8em;
+    }
+}
