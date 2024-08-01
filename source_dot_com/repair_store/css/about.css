@@ -65,7 +65,7 @@
 .about-footer-card{
     width: 90%;
     height: 20%;
-    border: 1px solid red;
+    /* border: 1px solid red; */
 }
 /* .about-box2{
     width: 90%;
@@ -91,3 +91,107 @@
     background-repeat: no-repeat;
     background-position: center;
 } */
+
+
+
+
+
+
+/* Media queries  */
+
+
+
+
+@media (max-width: 1024px) {
+    .about h1 {
+        font-size: 1.8vw;
+    }
+
+    .about-box1-item1 h2 {
+        font-size: 1.4vw;
+    }
+
+    .about-box1-item1 p {
+        font-size: 0.9vw;
+    }
+
+    .about-box1-item2 img{
+        width: 20em;
+        height: 8em;
+        /* border: 1px solid red; */
+    }
+    .about-box1-item2 .plumber{
+        width: 9em;
+        height: 9em;
+        /* border: 1px solid red; */
+    
+    }
+
+}
+
+@media (max-width: 768px) {
+    .about h1 {
+        font-size: 2.5vw;
+    }
+
+    .about-box1-item1 h2 {
+        font-size: 1.8vw;
+    }
+
+    .about-box1-item1 p {
+        font-size: 1.2vw;
+    }
+}
+
+@media (max-width: 480px) {
+    .about {
+        flex-direction: column;
+    }
+
+    .about h1 {
+        font-size: 3vw;
+    }
+
+    .about-box1 {
+        flex-direction: column;
+    }
+
+    .about-box1-item1 {
+        width: 100%;
+        padding-left: 0;
+        padding-top: 0;
+    }
+
+    .about-box1-item1 h2 {
+        font-size: 2.5vw;
+    }
+
+    .about-box1-item1 p {
+        font-size: 1.8vw;
+    }
+
+    .about-box1-item2 {
+        width: 100%;
+        height: auto;
+    }
+
+    .about-footer-card {
+        width: 100%;
+    }
+
+    /* Ensure nav and footer maintain their layout */
+    nav {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    footer {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+    }
+}
